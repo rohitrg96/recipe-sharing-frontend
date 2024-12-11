@@ -2,25 +2,25 @@ import { useState, useEffect } from 'react';
 import { fetchRecipes } from '../services/api';
 import { Recipe } from '../types/Recipe';
 
-export const useFetchRecipes = () => {
+export const useFetchRecipes = (searchTerm: string) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(tr/ue);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      // setLoading(true);
+      setError(null);
       try {
-        const data = await fetchRecipes();
+        const data = await fetchRecipes({ ingredients: searchTerm });
         setRecipes(data);
       } catch (error) {
         setError('Failed to fetch recipes');
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [searchTerm]);
 
-  return { recipes, loading, error };
+  return { recipes, error };
 };
