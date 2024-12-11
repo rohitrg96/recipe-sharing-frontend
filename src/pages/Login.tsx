@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+// src/pages/Login.tsx
+import React from 'react';
 import InputField from '../components/InputField';
 import AuthButton from '../components/AuthButton';
+import useLogin from '../hooks/useLogin'; // Import the custom hook
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Logging in with:', { username, password });
-    // Add your login logic here
-  };
+  // Destructure the hook to get the necessary variables and functions
+  const { userName, setUserName, password, setPassword, error, success, handleLogin } = useLogin();
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -18,7 +14,7 @@ const Login: React.FC = () => {
       <div
         style={{
           flex: 1,
-          backgroundImage: 'url(../public/images/Tofu-Burgers-1-2-400x400.webp)',
+          backgroundImage: 'url(images/Tofu-Burgers-1-2-400x400.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -38,12 +34,16 @@ const Login: React.FC = () => {
           {/* Title */}
           <h2 style={{ marginBottom: '2rem' }}>Tasty Tales</h2>
 
+          {/* Success/Error Messages */}
+          {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
+          {success && <p style={{ color: 'green', marginBottom: '1rem' }}>{success}</p>}
+
           {/* Username Input */}
           <InputField
             type="text"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
             name="username"
           />

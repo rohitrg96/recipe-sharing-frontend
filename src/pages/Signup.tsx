@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import InputField from '../components/InputField';
 import AuthButton from '../components/AuthButton';
+import useSignUp from '../hooks/useSignUp';
 
 const SignUp: React.FC = () => {
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSignUp = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Signing up with:', { firstname, lastname, email, password });
-    // Add your signup logic here
-  };
+  const {
+    firstname,
+    setFirstname,
+    lastname,
+    setLastname,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    success,
+    handleSignUp,
+  } = useSignUp();
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -20,7 +24,7 @@ const SignUp: React.FC = () => {
       <div
         style={{
           flex: 1,
-          backgroundImage: 'url(../public/images/Tofu-Burgers-1-2-400x400.webp)',
+          backgroundImage: 'url(images/Tofu-Burgers-1-2-400x400.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -39,6 +43,10 @@ const SignUp: React.FC = () => {
         <form onSubmit={handleSignUp} style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
           {/* Title */}
           <h2 style={{ marginBottom: '2rem' }}>Create Your Account</h2>
+
+          {/* Error/Success Messages */}
+          {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
+          {success && <p style={{ color: 'green', marginBottom: '1rem' }}>{success}</p>}
 
           {/* Firstname and Lastname */}
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
