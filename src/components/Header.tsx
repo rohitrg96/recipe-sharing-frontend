@@ -23,7 +23,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch }) => {
           <input
             type="search"
             className="form-control w-50 me-2"
-            placeholder="Search recipes..."
+            placeholder="Your Ingredients, Our Recipe Ideas"
             onChange={handleInputChange}
           />
         </div>
