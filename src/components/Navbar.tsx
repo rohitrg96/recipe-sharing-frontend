@@ -1,13 +1,16 @@
 // src/components/Navbar.tsx
-import React from "react";
-import { Link } from "react-router-dom"; // Use React Router for navigation
+import React from 'react';
+import { Link } from 'react-router-dom'; // Use React Router for navigation
 
 const Navbar: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          My Website
+        <Link
+          className="navbar-brand gradient-bg display-3 fs-2 fw-bold"
+          to="/"
+        >
+          Tasty Tales
         </Link>
         <button
           className="navbar-toggler"

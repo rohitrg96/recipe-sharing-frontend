@@ -1,14 +1,18 @@
 // import Card from '../components/card';
 import { useFetchRecipes } from '../hooks/useFetchRecipes';
 import Card from '../components/Card';
+import React, { useState } from 'react';
 import { Recipe } from '../types/Recipe';
+import HeaderSection from '../components/Header';
 
 const HomePage: React.FC = () => {
-  const { recipes, loading, error } = useFetchRecipes();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { recipes, error } = useFetchRecipes(searchTerm);
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term); // Update the search term state
+  };
 
   if (error) {
     return <div>{error}</div>;
@@ -17,18 +21,20 @@ const HomePage: React.FC = () => {
   return (
     <div>
       {/* Title Section */}
-      <div className="mt-3 mb-4 ">
-        <h1 className="text-center">All Recipes</h1>
-      </div>
+      <HeaderSection onSearch={handleSearch} />
 
       {/* Cards Section */}
       <div className="container  ">
         <div className="row ">
-          {recipes.map((recipe: Recipe) => (
-            <div key={recipe._id} className="col-12 col-sm-6 col-md-3">
-              <Card recipe={recipe} />
-            </div>
-          ))}
+          {recipes.length === 0 ? (
+            <div className="text-center">No recipes found</div> // Display the message if no recipes are found
+          ) : (
+            recipes.map((recipe: Recipe) => (
+              <div key={recipe._id} className="col-12 col-sm-6 col-md-3">
+                <Card recipe={recipe} />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
