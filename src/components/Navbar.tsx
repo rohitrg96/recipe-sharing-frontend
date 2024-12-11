@@ -1,51 +1,28 @@
 // src/components/Navbar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom'; // Use React Router for navigation
+import { FaSignInAlt } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
+        {/* Brand Logo */}
         <Link
           className="navbar-brand gradient-bg display-3 fs-2 fw-bold"
-          to="/"
+          to="/signup"
         >
           Tasty Tales
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/services">
-                Services
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
+
+        {/* Right Side Link */}
+        <div className="d-flex">
+          <Link
+            to="/login"
+            className="btn btn-outline-success d-flex align-items-center"
+          >
+            <FaSignInAlt className="me-2" /> Log In
+          </Link>
         </div>
       </div>
     </nav>

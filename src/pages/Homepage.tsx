@@ -4,6 +4,8 @@ import Card from '../components/Card';
 import React, { useState } from 'react';
 import { Recipe } from '../types/Recipe';
 import HeaderSection from '../components/Header';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const HomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +22,9 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
+      {/* Navbar */}
+      <Navbar />
+
       {/* Title Section */}
       <HeaderSection onSearch={handleSearch} />
 
@@ -37,6 +42,9 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
