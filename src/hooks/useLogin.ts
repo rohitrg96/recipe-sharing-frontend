@@ -1,4 +1,3 @@
-// src/hooks/useLogin.ts
 import { useState } from 'react';
 import { loginUser } from '../services/authservice';
 import Cookies from 'js-cookie';

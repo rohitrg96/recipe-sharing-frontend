@@ -1,4 +1,3 @@
-// src/pages/Login.tsx
 import React from 'react';
 import InputField from '../components/InputField';
 import AuthButton from '../components/AuthButton';

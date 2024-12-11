@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { signUpUser } from '../services/authservice';
 
 const useSignUp = () => {
   // State variables for form inputs and messages
@@ -20,36 +21,24 @@ const useSignUp = () => {
       password,
     };
 
-    try {
-      // Make API call to the backend for user registration
-      const response = await fetch('http://localhost:5000/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
+    // Make the API call via the signUpUser function
+    const response = await signUpUser(requestBody);
 
-      // Check if the response is OK
-      if (response.ok) {
-        const data = await response.json();
-        setSuccess('User registered successfully!');
-        setError('');
-        console.log('API Response:', data);
+    // If the response indicates success
+    if (response.success) {
+      setSuccess('User registered successfully!');
+      setError(''); // Clear any previous error message
+      console.log('API Response:', response.data);
 
-        // Clear form fields after successful registration
-        setFirstname('');
-        setLastname('');
-        setEmail('');
-        setPassword('');
-      } else {
-        setError("We couldn't create your account. Double-check your information and try again.");
-        setSuccess('');
-      }
-    } catch (err) {
-      setError('An error occurred while signing up.');
+      // Clear form fields after successful registration
+      setFirstname('');
+      setLastname('');
+      setEmail('');
+      setPassword('');
+    } else {
+      // Handle the error based on the response error message
+      setError(response.error || "We couldn't create your account. Double-check your information and try again.");
       setSuccess('');
-      console.error('SignUp Error:', err);
     }
   };
 

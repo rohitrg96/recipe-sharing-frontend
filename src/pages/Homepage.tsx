@@ -1,4 +1,3 @@
-// import Card from '../components/card';
 import { useFetchRecipes } from '../hooks/useFetchRecipes';
 import Card from '../components/Card';
 import React, { useState } from 'react';

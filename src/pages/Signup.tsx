@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import InputField from '../components/InputField';
 import AuthButton from '../components/AuthButton';
 import useSignUp from '../hooks/useSignUp';
