@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signUpUser } from '../services/authservice';
+import { signUpUser } from '../services/authService';
 
 const useSignUp = () => {
   // State variables for form inputs and messages
