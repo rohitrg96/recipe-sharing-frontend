@@ -1,4 +1,4 @@
-import InputField from '../components/InputField';
+import InputField from '../components/InputField/AuthInputField';
 import AuthButton from '../components/AuthButton';
 import useSignUp from '../hooks/useSignUp';
 

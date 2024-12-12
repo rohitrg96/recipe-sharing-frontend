@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
-import AddRecipe from './pages/AddRecipe/AddRecipe';
+import AddRecipe from './pages/AddRecipe';
 
 const App: React.FC = () => {
   return (

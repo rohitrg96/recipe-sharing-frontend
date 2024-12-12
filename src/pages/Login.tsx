@@ -1,5 +1,5 @@
 import React from 'react';
-import InputField from '../components/InputField';
+import InputField from '../components/InputField/AuthInputField';
 import AuthButton from '../components/AuthButton';
 import useLogin from '../hooks/useLogin'; // Import the custom hook
 
