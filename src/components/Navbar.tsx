@@ -1,48 +1,70 @@
-// src/components/Navbar.tsx
-import React from "react";
-import { Link } from "react-router-dom"; // Use React Router for navigation
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaSignInAlt, FaUser } from 'react-icons/fa';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+  const authToken = Cookies.get('authToken');
+  const handleLogout = async () => {
+    await axios.post('http://localhost:5000/api/auth/logout', null, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('authToken')}`,
+      },
+    });
+    console.log(authToken);
+    Cookies.remove('authToken'); // Remove the authToken cookie
+    navigate('/login'); // Redirect to login page
+  };
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          My Website
+        {/* Brand Logo */}
+        <Link className="navbar-brand gradient-bg display-3 fs-2 fw-bold" to="/">
+          Tasty Tales
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/services">
-                Services
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
+
+        {/* Right Side Link */}
+        <div className="d-flex">
+          {authToken ? (
+            <div className="dropdown">
+              <button
+                className="btn btn-outline-success dropdown-toggle"
+                type="button"
+                id="accountDropdown"
+                onClick={() => setShowDropdown((prev) => !prev)}
+                aria-expanded={showDropdown}
+              >
+                <FaUser className="me-2" /> My Account
+              </button>
+              {showDropdown && (
+                <ul className="dropdown-menu show" aria-labelledby="accountDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/add-recipe">
+                      Add Recipe
+                    </Link>
+                  </li>
+                  {/* <li>
+                    <Link className="dropdown-item" to="/my-recipes">
+                      My Recipes
+                    </Link>
+                  </li> */}
+                  <li>
+                    <button className="dropdown-item" onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+          ) : (
+            <Link to="/login" className="btn btn-outline-success d-flex align-items-center">
+              <FaSignInAlt className="me-2" /> Log In
+            </Link>
+          )}
         </div>
       </div>
     </nav>

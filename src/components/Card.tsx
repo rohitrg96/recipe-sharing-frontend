@@ -1,30 +1,100 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-interface CardProps {
+interface RecipeCardProps {
   recipe: {
+    _id: string;
     title: string;
-    image: string;
+    image: string | null;
   };
 }
 
-const Card: React.FC<CardProps> = ({ recipe }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCardClick = () => {
+    const authToken = Cookies.get('authToken');
+    if (!authToken) {
+      setShowModal(true);
+    } else {
+      navigate(`/recipe/${recipe._id}`);
+    }
+  };
+
+  const handleCloseModal = () => setShowModal(false);
+
   return (
-    <div className="card mb-4">
-      <img src={recipe.image} className="card-img-top" alt={recipe.title} />
-      <div className="card-body">
-        <h5
-          className="card-title"
-          style={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {recipe.title}
-        </h5>
+    <>
+      <div className="card shadow-sm mb-4" style={{ cursor: 'pointer', height: '16rem' }} onClick={handleCardClick}>
+        {recipe.image ? (
+          <img
+            src={recipe.image}
+            className="card-img-top"
+            alt={recipe.title}
+            style={{ objectFit: 'cover', height: '12rem' }}
+          />
+        ) : (
+          <div
+            className="d-flex justify-content-center align-items-center bg-light"
+            style={{ height: '12rem', color: '#6c757d' }}
+          >
+            No Image Available
+          </div>
+        )}
+        <div className="card-body d-flex flex-column justify-content-between">
+          <h5
+            className="card-title text-center text-truncate"
+            style={{
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {recipe.title}
+          </h5>
+        </div>
       </div>
-    </div>
+
+      {/* Modal for Authentication Alert */}
+      <div
+        className={`modal fade ${showModal ? 'show' : ''}`}
+        tabIndex={-1}
+        aria-labelledby="loginRequiredModalLabel"
+        aria-hidden={!showModal}
+        style={{ display: showModal ? 'block' : 'none' }}
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="loginRequiredModalLabel">
+                Login Required
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={handleCloseModal}
+              ></button>
+            </div>
+            <div className="modal-body">
+              <p>You need to log in first to view the details of this recipe.</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                Close
+              </button>
+              <button type="button" className="btn btn-primary" onClick={() => navigate('/login')}>
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
-export default Card;
+export default RecipeCard;
