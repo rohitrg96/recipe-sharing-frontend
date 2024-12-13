@@ -9,14 +9,12 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch }) => {
   };
   return (
     <div className="mb-5 ">
-      <div className="text-center border rounded bg-success p-2 text-dark bg-opacity-50 ">
+      <div className="text-center ">
         {/* Title */}
         <h1 className="mb-3">Recipes</h1>
 
         {/* Random Text */}
-        <p className="mb-5">
-          Discover thousands of delicious recipes from around the world!
-        </p>
+        <p className="mb-5">Discover thousands of delicious recipes from around the world!</p>
 
         {/* Search Bar */}
         <div className="d-flex justify-content-center">

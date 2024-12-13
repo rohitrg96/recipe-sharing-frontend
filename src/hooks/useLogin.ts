@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { loginUser } from '../services/authservice';
+import { loginUser } from '../services/authService';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const useLogin = () => {
   // State for form inputs
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   // State for error and success messages
   const [error, setError] = useState('');
@@ -27,6 +29,7 @@ const useLogin = () => {
     if (response.success) {
       setSuccess(response.data.message); // Successfully logged in
       setError('');
+      navigate('/');
       console.log(response.data.data);
       Cookies.set('authToken', response.data.data.token, { expires: 7, secure: false, sameSite: 'Strict' });
     } else {

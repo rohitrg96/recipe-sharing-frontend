@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  position: relative; /* For positioning pseudo-element */
+  min-height: 100vh; /* Ensure full height */
+}
+
+/* Apply background with blur effect */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/images/bgimage.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px); /* Apply blur effect */
+  z-index: -1; /* Ensure the background is behind content */
+}
+
+/* Optional: Ensure content stays visible */
+.main-content {
+  position: relative;
+  z-index: 1;
+}

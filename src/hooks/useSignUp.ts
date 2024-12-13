@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { signUpUser } from '../services/authservice';
+import { signUpUser } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 const useSignUp = () => {
   // State variables for form inputs and messages
@@ -9,6 +10,7 @@ const useSignUp = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   // Handle the form submission and API call
   const handleSignUp = async (e: React.FormEvent) => {
@@ -35,6 +37,7 @@ const useSignUp = () => {
       setLastname('');
       setEmail('');
       setPassword('');
+      navigate('/login');
     } else {
       // Handle the error based on the response error message
       setError(response.error || "We couldn't create your account. Double-check your information and try again.");

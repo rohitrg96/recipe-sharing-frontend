@@ -1,4 +1,4 @@
-import InputField from '../components/InputField';
+import InputField from '../components/InputField/AuthInputField';
 import AuthButton from '../components/AuthButton';
 import useSignUp from '../hooks/useSignUp';
 
@@ -23,7 +23,7 @@ const SignUp: React.FC = () => {
       <div
         style={{
           flex: 1,
-          backgroundImage: 'url(images/Tofu-Burgers-1-2-400x400.webp)',
+          backgroundImage: 'url(images/auth.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -97,7 +97,7 @@ const SignUp: React.FC = () => {
           {/* Sign In Link */}
           <p>
             Already have an account?{' '}
-            <a href="/login" style={{ color: '#007BFF', textDecoration: 'none' }}>
+            <a href="/login" style={{ color: 'black', textDecoration: 'none' }}>
               Click here to sign in.
             </a>
           </p>
