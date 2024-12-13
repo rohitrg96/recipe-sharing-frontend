@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../utils/constants';
 export const addRecipe = async (recipeData: any) => {
   try {
     const token = Cookies.get('authToken');
+    console.log(token);
     if (!token) {
       throw new Error('Authentication token not found');
     }

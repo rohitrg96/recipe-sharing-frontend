@@ -13,7 +13,7 @@ const Login: React.FC = () => {
       <div
         style={{
           flex: 1,
-          backgroundImage: 'url(images/Tofu-Burgers-1-2-400x400.webp)',
+          backgroundImage: 'url(images/auth.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
           {/* Sign Up Link */}
           <p>
             Don’t have an account?{' '}
-            <a href="/signup" style={{ color: '#007BFF', textDecoration: 'none' }}>
+            <a href="/signup" style={{ color: 'black', textDecoration: 'none' }}>
               Click here to sign up.
             </a>
           </p>
