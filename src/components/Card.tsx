@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-interface RecipeCardProps {
+export interface RecipeCardProps {
   recipe: {
     _id: string;
     title: string;
     image: string | null;
+    starsCount: number;
+    averageStars: number;
   };
 }
 
@@ -27,7 +29,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
   return (
     <>
-      <div className="card shadow-sm mb-4" style={{ cursor: 'pointer', height: '16rem' }} onClick={handleCardClick}>
+      <div className="card shadow-sm mb-4" style={{ cursor: 'pointer' }} onClick={handleCardClick}>
         {recipe.image ? (
           <img
             src={recipe.image}
@@ -44,8 +46,18 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           </div>
         )}
         <div className="card-body d-flex flex-column justify-content-between">
-          <h5
-            className="card-title text-center text-truncate"
+          <h4 className="card-title text-center text-truncate">
+            <span style={{ color: 'gold' }}>★ ★ ★ ★ ★</span>
+          </h4>
+
+          <p className="card-title text-center text-truncate fw-bold">
+            {recipe.starsCount > 0
+              ? `${recipe.starsCount} Reviews / ${recipe.averageStars.toFixed(1)} Average`
+              : 'Be the first to review!'}
+          </p>
+
+          <h4
+            className="card-title text-center text-truncate fw-bolder text-capitalize"
             style={{
               overflow: 'hidden',
               whiteSpace: 'nowrap',
@@ -53,7 +65,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             }}
           >
             {recipe.title}
-          </h5>
+          </h4>
         </div>
       </div>
 

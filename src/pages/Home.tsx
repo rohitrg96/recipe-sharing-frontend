@@ -5,15 +5,22 @@ import { Recipe } from '../types/Recipe';
 import HeaderSection from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Pagination from '../components/pagination';
 
 const HomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { recipes, error } = useFetchRecipes(searchTerm);
+  const handlePageChange = (currentPage: number) => {
+    console.log(`Navigated to page: ${currentPage}`);
+    setCurrentPage(currentPage);
+  };
 
   const handleSearch = (term: string) => {
     setSearchTerm(term); // Update the search term state
   };
+
+  const { recipes, error, totalpages } = useFetchRecipes(searchTerm, currentPage);
 
   if (error) {
     return <div>{error}</div>;
@@ -41,6 +48,7 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </div>
+      <Pagination currentPage={currentPage} totalPages={totalpages} onPageChange={handlePageChange} />
 
       {/* Footer */}
       <Footer />

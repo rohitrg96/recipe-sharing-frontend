@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { fetchRecipes } from '../services/api';
+import { fetchRecipes } from '../services/searchRecipes';
 import { Recipe } from '../types/Recipe';
 
-export const useFetchRecipes = (searchTerm: string) => {
+export const useFetchRecipes = (searchTerm: string, page: number) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  // const [loading, setLoading] = useState<boolean>(tr/ue);
+  const [totalpages, setTotalPages] = useState<number>(10);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -12,15 +12,17 @@ export const useFetchRecipes = (searchTerm: string) => {
       // setLoading(true);
       setError(null);
       try {
-        const data = await fetchRecipes({ ingredients: searchTerm });
-        setRecipes(data);
+        const data = await fetchRecipes({ ingredients: searchTerm, page: page, limit: 12 });
+        setRecipes(data.data);
+        console.log(data.pagination.totalPages);
+        setTotalPages(data.pagination.totalPages);
       } catch (error) {
         setError('Failed to fetch recipes');
       }
     };
 
     fetchData();
-  }, [searchTerm]);
+  }, [searchTerm, page]);
 
-  return { recipes, error };
+  return { recipes, error, totalpages };
 };
