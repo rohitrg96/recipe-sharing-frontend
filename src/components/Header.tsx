@@ -13,7 +13,6 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch }) => {
         {/* Title */}
         <h1 className="mb-3">Recipes</h1>
 
-        {/* Random Text */}
         <p className="mb-5">Discover thousands of delicious recipes from around the world!</p>
 
         {/* Search Bar */}

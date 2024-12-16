@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
           <div className="col-12 col-md-4 mb-3">
             <h5>About</h5>
             <p>
-              Tasty Tales: Where Flavor Meets Storytelling" Every great meal has a story, and every story deserves to be
+              Tasty Tales: Where Flavor Meets Storytelling Every great meal has a story, and every story deserves to be
               shared.{' '}
             </p>
           </div>
