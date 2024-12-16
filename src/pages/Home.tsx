@@ -1,19 +1,14 @@
 import { useFetchRecipes } from '../hooks/useFetchRecipes';
 import Card from '../components/Card';
-import React, { useState } from 'react';
 import { Recipe } from '../types/Recipe';
 import HeaderSection from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Pagination from '../components/pagination';
 
 const HomePage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const { recipes, error } = useFetchRecipes(searchTerm);
-
-  const handleSearch = (term: string) => {
-    setSearchTerm(term); // Update the search term state
-  };
+  const { recipes, error, totalpages, handleSearch, handlePageChange, currentPage, handleFilterChange } =
+    useFetchRecipes();
 
   if (error) {
     return <div>{error}</div>;
@@ -25,7 +20,7 @@ const HomePage: React.FC = () => {
       <Navbar />
 
       {/* Title Section */}
-      <HeaderSection onSearch={handleSearch} />
+      <HeaderSection onSearch={handleSearch} onFilterChange={handleFilterChange} />
 
       {/* Cards Section */}
       <div className="container  ">
@@ -41,6 +36,7 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </div>
+      <Pagination currentPage={currentPage} totalPages={totalpages} onPageChange={handlePageChange} />
 
       {/* Footer */}
       <Footer />

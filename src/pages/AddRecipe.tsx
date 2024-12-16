@@ -27,6 +27,8 @@ const AddRecipe: React.FC = () => {
     handleSubmit,
     setTitle,
     setPreparationTime,
+    handleUpload,
+    uploadStatus,
   } = useAddRecipe();
 
   return (
@@ -85,7 +87,6 @@ const AddRecipe: React.FC = () => {
                 required
               />
             </div>
-
             <div className="col-md-4">
               <div className="mb-3">
                 <label htmlFor="image" className="form-label fw-bold">
@@ -120,10 +121,16 @@ const AddRecipe: React.FC = () => {
                 ) : (
                   <p className="mt-3 text-muted">No file chosen</p>
                 )}
+
+                <button type="button" className="btn btn-primary mt-3" onClick={handleUpload} disabled={!imagePreview}>
+                  Upload Image
+                </button>
+
+                {uploadStatus && <p className="mt-3">{uploadStatus}</p>}
               </div>
             </div>
 
-            <button type="submit" className="btn btn-success mt-3">
+            <button type="submit" className="btn btn-primary mt-3">
               Submit
             </button>
           </form>
