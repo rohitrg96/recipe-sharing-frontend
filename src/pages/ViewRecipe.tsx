@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useViewRecipe } from '../hooks/useViewRecipe';
-import CommentInput from '../components/InputField/commentInput';
+import CommentInput from '../components/InputField/CommentInput';
 
 const ViewRecipe: React.FC = () => {
   const { recipeId } = useParams<{ recipeId: string }>();
@@ -25,7 +25,7 @@ const ViewRecipe: React.FC = () => {
   } = useViewRecipe(recipeId);
 
   if (!recipe) {
-    return <div className="text-center mt-5 text-danger">Recipe not found!</div>;
+    return <div className="text-center mt-5 text-danger">404 Page Not Found</div>;
   }
 
   return (
@@ -158,7 +158,6 @@ const ViewRecipe: React.FC = () => {
                 <span
                   key={star}
                   className="me-1 fs-3 bg-black"
-                  onClick={() => handleRate(star)}
                   style={{
                     color: star <= Number(userRating.rating) ? '#ffc107' : '#e4e5e9',
                   }}

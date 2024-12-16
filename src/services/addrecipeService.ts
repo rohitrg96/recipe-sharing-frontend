@@ -1,19 +1,10 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { API_BASE_URL } from '../utils/constants';
+import api from '../api/axiosInstance';
 
 export const addRecipe = async (recipeData: any) => {
   try {
-    const token = Cookies.get('authToken');
-    console.log(token);
-    if (!token) {
-      throw new Error('Authentication token not found');
-    }
-
-    const response = await axios.post(`${API_BASE_URL}/recipes`, recipeData, {
+    const response = await api.post('/recipes', recipeData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Attach the auth token
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', // This header remains for JSON content
       },
     });
 

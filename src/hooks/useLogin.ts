@@ -24,14 +24,22 @@ const useLogin = () => {
 
     // Call the API service
     const response = await loginUser(loginData);
-    console.log(response);
+    // console.log(response);
 
     if (response.success) {
       setSuccess(response.data.message); // Successfully logged in
       setError('');
       navigate('/');
-      console.log(response.data.data);
-      Cookies.set('authToken', response.data.data.token, { expires: 7, secure: false, sameSite: 'Strict' });
+
+      function getTokenExpiry(token: string) {
+        const decoded = JSON.parse(atob(token.split('.')[1])); // Decode the JWT
+        console.log(decoded, 'decoded');
+        return decoded.exp * 1000; // Convert expiry from seconds to milliseconds
+      }
+      const token: string = response.data.data.token;
+      const expiryTime = getTokenExpiry(token);
+      console.log(new Date(expiryTime));
+      Cookies.set('authToken', token, { expires: new Date(expiryTime), secure: false, sameSite: 'Strict' });
     } else {
       setError(response.error); // Display error message
       setSuccess('');
