@@ -37,22 +37,37 @@ interface RecipeData {
   }[];
 }
 
+interface UserComment {
+  user: string;
+  _id: string;
+  createdAt?: string;
+  comment: string;
+}
+
+interface UserRating {
+  user: string;
+  _id: string;
+  createdAt?: string;
+  rating: string;
+}
+
 export const useViewRecipe = (recipeId: string) => {
   const [recipe, setRecipe] = useState<RecipeData | null>(null);
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
-  const [userRating, setUserRating] = useState<boolean>(false);
-  const [userComment, setUserComment] = useState<boolean>(false);
+  const [userRating, setUserRating] = useState<UserRating | null>(null);
+  const [userComment, setUserComment] = useState<UserComment | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
         const fetchedRecipe = await fetchRecipeById(recipeId);
         const userFeedback = await fetchUserFeedback(recipeId);
-        console.log(userFeedback.data.userCommented, 12);
+        console.log(userFeedback.data, 12);
         setRecipe(fetchedRecipe);
-        setUserComment(userFeedback.data.userCommented);
-        setUserRating(userFeedback.data.userRated);
+        setUserComment(userFeedback.data.checkIfUserhasCommented);
+        setUserRating(userFeedback.data.checkIfUserhasRated);
       } catch (error) {
         console.error('Error fetching recipe:', error);
       }
@@ -69,7 +84,9 @@ export const useViewRecipe = (recipeId: string) => {
         const updatedRecipe = await fetchRecipeById(recipeId);
         const userFeedback = await fetchUserFeedback(recipeId);
         setRecipe(updatedRecipe);
-        setUserComment(userFeedback.data.userCommented);
+        setUserComment(userFeedback.data.checkIfUserhasCommented);
+        setUserRating(userFeedback.data.checkIfUserhasRated);
+        setShowModal(false);
       } catch (error) {
         console.error('Error adding comment:', error);
       }
@@ -83,7 +100,7 @@ export const useViewRecipe = (recipeId: string) => {
       const updatedRecipe = await fetchRecipeById(recipeId);
       const userFeedback = await fetchUserFeedback(recipeId);
       setRecipe(updatedRecipe);
-      setUserRating(userFeedback.data.userRated);
+      setUserRating(userFeedback.data.checkIfUserhasRated);
     } catch (error) {
       console.error('Error submitting rating:', error);
     }
@@ -94,6 +111,8 @@ export const useViewRecipe = (recipeId: string) => {
     rating,
     userRating,
     userComment,
+    showModal,
+    setShowModal,
     setUserComment,
     setUserRating,
     setRating,

@@ -2,7 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useViewRecipe } from '../hooks/useViewrecipe';
+import { useViewRecipe } from '../hooks/useViewRecipe';
+import CommentInput from '../components/InputField/commentInput';
 
 const ViewRecipe: React.FC = () => {
   const { recipeId } = useParams<{ recipeId: string }>();
@@ -10,8 +11,18 @@ const ViewRecipe: React.FC = () => {
     return <div className="text-center mt-5 text-danger">Recipe not found!</div>;
   }
 
-  const { recipe, rating, comment, setComment, handleAddComment, handleRate, userComment, userRating } =
-    useViewRecipe(recipeId);
+  const {
+    recipe,
+    rating,
+    comment,
+    setComment,
+    handleAddComment,
+    handleRate,
+    userComment,
+    userRating,
+    showModal,
+    setShowModal,
+  } = useViewRecipe(recipeId);
 
   if (!recipe) {
     return <div className="text-center mt-5 text-danger">Recipe not found!</div>;
@@ -70,12 +81,57 @@ const ViewRecipe: React.FC = () => {
           <p>No comments yet. Be the first to comment!</p>
         ) : (
           recipe.comments.map((c) => (
-            <div className="border rounded p-3 mb-3 shadow-sm" key={c._id}>
-              <h6 className="fw-bold">
+            <div className="border rounded p-3 mb-3 shadow-sm position-relative" key={c._id}>
+              <h6 className="fw-bold mb-1">
                 {c.user.firstName} {c.user.lastName}
               </h6>
               <p className="mb-1">{c.comment}</p>
               <small className="text-muted">Posted on {new Date(c.createdAt).toLocaleDateString()}</small>
+              {c._id === userComment?._id ? (
+                <>
+                  <button
+                    className="btn btn-primary mt-2 fw-bold position-absolute top-0 end-0 "
+                    style={{
+                      textDecoration: 'none',
+                      margin: '5px 5px',
+                    }}
+                    onClick={() => setShowModal(true)}
+                  >
+                    Edit
+                  </button>
+
+                  <div
+                    className={`modal fade ${showModal ? 'show d-block' : ''}`}
+                    tabIndex={-1}
+                    role="dialog"
+                    style={{ background: showModal ? 'rgba(0, 0, 0, 0.5)' : 'transparent' }}
+                  >
+                    <div className="modal-dialog" role="document">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <button
+                            type="button"
+                            className="btn-close"
+                            onClick={() => setShowModal(false)}
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          {/* Reusable CommentInput */}
+                          <CommentInput
+                            label="Edit your Comment"
+                            comment={comment}
+                            onChange={setComment}
+                            onSubmit={handleAddComment}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           ))
         )}
@@ -84,45 +140,54 @@ const ViewRecipe: React.FC = () => {
 
         <div className="mt-4">
           {userComment ? (
-            <label htmlFor="commentInput" className="form-label fw-bold">
-              Already commented? Edit below!
-            </label>
+            <></>
           ) : (
-            <label htmlFor="commentInput" className="form-label fw-bold">
-              Add a Comment
-            </label>
+            <>
+              <CommentInput label="Add a Commet" onChange={setComment} onSubmit={handleAddComment} comment={comment} />
+            </>
           )}
-          <textarea
-            id="commentInput"
-            className="form-control mb-3"
-            rows={3}
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          ></textarea>
-          <button className="btn btn-primary" onClick={handleAddComment}>
-            Submit
-          </button>
         </div>
 
         <hr className="my-5" />
 
         {/* Rating Section */}
-        {userRating ? <h4>Already rated? Edit below!</h4> : <h4>Rate This Recipe</h4>}
-        <div className="mt-2 ">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <span
-              key={star}
-              className="me-1 fs-3 bg-black"
-              onClick={() => handleRate(star)}
-              style={{
-                cursor: 'pointer',
-                color: star <= rating ? '#ffc107' : '#e4e5e9',
-              }}
-            >
-              ★
-            </span>
-          ))}
-        </div>
+        {userRating ? (
+          <>
+            <div className="mt-2 ">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className="me-1 fs-3 bg-black"
+                  onClick={() => handleRate(star)}
+                  style={{
+                    color: star <= Number(userRating.rating) ? '#ffc107' : '#e4e5e9',
+                  }}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <h4>Rate This Recipe</h4>
+            <div className="mt-2 ">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className="me-1 fs-3 bg-black"
+                  onClick={() => handleRate(star)}
+                  style={{
+                    cursor: 'pointer',
+                    color: star <= rating ? '#ffc107' : '#e4e5e9',
+                  }}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <Footer />

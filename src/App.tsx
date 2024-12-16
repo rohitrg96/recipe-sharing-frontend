@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import AddRecipe from './pages/AddRecipe';
 import ViewRecipe from './pages/ViewRecipe';
-import MyRecipes from './pages/MyRecipe';
+
 import './assets/css/global.css';
 
 const App: React.FC = () => {
@@ -19,7 +19,6 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/add-recipe" element={<AddRecipe />} />
           <Route path="/recipe/:recipeId" element={<ViewRecipe />} />
-          <Route path="/my-recipes" element={<MyRecipes />} />
         </Routes>
       </div>
     </div>
