@@ -7,7 +7,8 @@ import Footer from '../components/Footer';
 import Pagination from '../components/pagination';
 
 const HomePage: React.FC = () => {
-  const { recipes, error, totalpages, handleSearch, handlePageChange, currentPage } = useFetchRecipes();
+  const { recipes, error, totalpages, handleSearch, handlePageChange, currentPage, handleFilterChange } =
+    useFetchRecipes();
 
   if (error) {
     return <div>{error}</div>;
@@ -19,7 +20,7 @@ const HomePage: React.FC = () => {
       <Navbar />
 
       {/* Title Section */}
-      <HeaderSection onSearch={handleSearch} />
+      <HeaderSection onSearch={handleSearch} onFilterChange={handleFilterChange} />
 
       {/* Cards Section */}
       <div className="container  ">

@@ -4,8 +4,8 @@ import { API_BASE_URL } from '../utils/constants';
 interface RecipeSearchParams {
   ingredients?: string;
   title?: string;
-  minRating?: number;
-  maxPreparationTime?: number;
+  minRating?: string;
+  maxPreparationTime?: string;
   page?: number;
   limit?: number;
 }
