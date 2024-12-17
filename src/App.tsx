@@ -16,9 +16,12 @@ const App: React.FC = () => {
       <div className="d-flex flex-column min-vh-100">
         <div className="flex-grow-1 main-content">
           <Routes>
+            {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<HomePage />} />
+
+            {/* Protected Routes */}
             <Route
               path="/add-recipe"
               element={
@@ -43,41 +46,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-{
-  /* <Routes>
-{/* Public Routes */
-}
-{
-  /* <Route path="/" element={<HomePage />} />
-<Route path="/login" element={<Login />} />
-<Route path="/signup" element={<SignUp />} />
-
-{/* Protected Routes */
-}
-{
-  /* <Route
-  path="/add-recipe"
-  element={
-    <ProtectedRoute>
-      <AddRecipe />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/recipe/:recipeId"
-  element={
-    <ProtectedRoute>
-      <ViewRecipe />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/my-recipes"
-  element={
-    <ProtectedRoute>
-      <MyRecipes />
-    </ProtectedRoute>
-  }
-/>
-</Routes> */
-}
