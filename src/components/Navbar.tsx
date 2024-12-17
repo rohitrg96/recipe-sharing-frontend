@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaUser } from 'react-icons/fa';
 import Cookies from 'js-cookie';
-import axios from 'axios';
+import api from '../api/axiosInstance';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
@@ -11,12 +11,12 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const authToken = Cookies.get('authToken');
   const handleLogout = async () => {
-    await axios.post('http://localhost:5000/api/auth/logout', null, {
+    await api.post('/auth/logout', null, {
       headers: {
         Authorization: `Bearer ${Cookies.get('authToken')}`,
       },
     });
-    console.log(authToken);
+
     Cookies.remove('authToken'); // Remove the authToken cookie
     logout();
     navigate('/login'); // Redirect to login page
