@@ -3,8 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaUser } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
+  const { logout } = useAuth();
+
   const navigate = useNavigate();
   const authToken = Cookies.get('authToken');
   const handleLogout = async () => {
@@ -15,6 +18,7 @@ const Navbar: React.FC = () => {
     });
     console.log(authToken);
     Cookies.remove('authToken'); // Remove the authToken cookie
+    logout();
     navigate('/login'); // Redirect to login page
   };
   const [showDropdown, setShowDropdown] = useState(false);

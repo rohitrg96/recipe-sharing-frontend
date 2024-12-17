@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/constants';
+import api from '../api/axiosInstance';
 
 interface RecipeSearchParams {
   ingredients?: string;
@@ -13,10 +12,10 @@ interface RecipeSearchParams {
 // API function to fetch recipes
 export const fetchRecipes = async (params: RecipeSearchParams = {}) => {
   try {
-    console.log(params, 'params');
-    const response = await axios.get(`${API_BASE_URL}/recipes`, { params });
+    const response = await api.get('/recipes', { params }); // Using the `api` instance
     return response.data.data;
-  } catch (error) {
-    throw new Error('Failed to fetch recipes');
+  } catch (error: any) {
+    console.error('Error fetching recipes:', error);
+    throw new Error(error.response?.data?.message || 'Failed to fetch recipes');
   }
 };
