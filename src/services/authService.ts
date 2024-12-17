@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/constants';
+import api from '../api/axiosInstance';
 
 interface SignUpRequest {
   firstName: string;
@@ -13,41 +12,43 @@ interface LoginRequest {
   password: string;
 }
 
+// Sign up user
 export const signUpUser = async (userData: SignUpRequest) => {
   try {
-    // Make API call using axios
-    const response = await axios.post(`${API_BASE_URL}/users`, userData, {
+    const response = await api.post('/users', userData, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', // This header remains for JSON content
       },
     });
-
-    // Return success response
     return { success: true, data: response.data };
   } catch (error: any) {
-    // Error handling
-    console.error('SignUp Error:', error);
-    const errorMessage = error.response?.data?.message || error.message || 'Something went wrong';
-    return { success: false, error: errorMessage };
+    const errorMessages =
+      error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') || 'Something went wrong';
+
+    return { success: false, error: errorMessages };
   }
 };
 
 export const loginUser = async (loginData: LoginRequest) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData, {
+    const response = await api.post(`/auth/login`, loginData, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', // This header remains for JSON content
       },
     });
 
-    // Handle success response
+    // Manually check for error status (like 400) and handle accordingly
     if (response.status === 200) {
       return { success: true, data: response.data };
     } else {
-      return { success: false, error: response.data.message };
+      return { success: false, error: response.data?.message || 'Invalid credentials' };
     }
   } catch (error: any) {
     console.error('Login Error:', error);
-    return { success: false, error: error.message || 'Something went wrong' };
+
+    const errorMessages =
+      error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') || 'Something went wrong';
+
+    return { success: false, error: errorMessages };
   }
 };

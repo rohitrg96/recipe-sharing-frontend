@@ -2,41 +2,43 @@ import { useState } from 'react';
 import { loginUser } from '../services/authService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import the AuthContext
 
 const useLogin = () => {
-  // State for form inputs
+  const { login } = useAuth(); // Access the login method from AuthContext
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  // State for error and success messages
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
-  // Handle login form submission
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const loginData = {
-      userName,
-      password,
-    };
-
-    // Call the API service
+    const loginData = { userName, password };
     const response = await loginUser(loginData);
-    console.log(response);
 
     if (response.success) {
       setSuccess(response.data.message); // Successfully logged in
       setError('');
-      navigate('/');
-      console.log(response.data.data);
-      Cookies.set('authToken', response.data.data.token, { expires: 7, secure: false, sameSite: 'Strict' });
+      const token = response.data.data.token;
+      const expiryTime = getTokenExpiry(token);
+      Cookies.set('authToken', token, { expires: new Date(expiryTime), secure: false, sameSite: 'Strict' });
+
+      // Update AuthContext state to indicate that the user is logged in
+      login();
+
+      navigate('/'); // Redirect to home page after login
     } else {
-      setError(response.error); // Display error message
+      setError(response.error);
       setSuccess('');
     }
   };
+
+  function getTokenExpiry(token: string) {
+    const decoded = JSON.parse(atob(token.split('.')[1])); // Decode the JWT
+    return decoded.exp * 1000; // Convert expiry from seconds to milliseconds
+  }
 
   return {
     userName,
