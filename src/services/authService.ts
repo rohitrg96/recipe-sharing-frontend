@@ -45,9 +45,14 @@ export const loginUser = async (loginData: LoginRequest) => {
     }
   } catch (error: any) {
     console.error('Login Error:', error);
-
-    const errorMessages =
-      error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') || 'Something went wrong';
+    let errorMessages;
+    if (error.response.data.errors) {
+      errorMessages =
+        error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') ||
+        'Something went wrong';
+    } else {
+      errorMessages = error.response.data.message;
+    }
 
     return { success: false, error: errorMessages };
   }
