@@ -9,7 +9,6 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated, 'insideProtect');
 
   if (!isAuthenticated) {
     console.log(!isAuthenticated, 1111);
