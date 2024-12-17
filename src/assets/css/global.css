@@ -17,8 +17,8 @@ body::before {
   background-image: url('/images/bgimage.jpg');
   background-size: cover;
   background-position: center;
-  filter: blur(5px); /* Apply blur effect */
-  z-index: -1; /* Ensure the background is behind content */
+  filter: blur(15px); /* Apply blur effect */
+  z-index: -2; /* Ensure the background is behind content */
 }
 
 /* Optional: Ensure content stays visible */
