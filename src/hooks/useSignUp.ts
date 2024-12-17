@@ -45,6 +45,10 @@ const useSignUp = () => {
     }
   };
 
+  const handleLoginRedirect = () => {
+    navigate('/login');
+  };
+
   // Return state values and handlers to be used in the component
   return {
     firstname,
@@ -58,6 +62,7 @@ const useSignUp = () => {
     error,
     success,
     handleSignUp,
+    handleLoginRedirect,
   };
 };
 

@@ -40,6 +40,10 @@ const useLogin = () => {
     return decoded.exp * 1000; // Convert expiry from seconds to milliseconds
   }
 
+  const handleSignupRedirect = () => {
+    navigate('/signup');
+  };
+
   return {
     userName,
     setUserName,
@@ -48,6 +52,7 @@ const useLogin = () => {
     error,
     success,
     handleLogin,
+    handleSignupRedirect,
   };
 };
 
