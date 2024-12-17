@@ -1,11 +1,12 @@
 import React from 'react';
 import InputField from '../components/InputField/AuthInputField';
 import AuthButton from '../components/AuthButton';
-import useLogin from '../hooks/useLogin'; // Import the custom hook
+import useLogin from '../hooks/useLogin';
 
 const Login: React.FC = () => {
   // Destructure the hook to get the necessary variables and functions
-  const { userName, setUserName, password, setPassword, error, success, handleLogin } = useLogin();
+  const { userName, setUserName, password, setPassword, error, success, handleLogin, handleSignupRedirect } =
+    useLogin();
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -31,12 +32,12 @@ const Login: React.FC = () => {
       >
         <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
           {/* Title */}
-          <h2 style={{ marginBottom: '2rem' }}>Tasty Tales</h2>
-
+          <h2 className="fw-bold" style={{ marginBottom: '2rem' }}>
+            Welcome Back! 👋
+          </h2>
           {/* Success/Error Messages */}
           {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
           {success && <p style={{ color: 'green', marginBottom: '1rem' }}>{success}</p>}
-
           {/* Username Input */}
           <InputField
             type="text"
@@ -46,7 +47,6 @@ const Login: React.FC = () => {
             required
             name="username"
           />
-
           {/* Password Input */}
           <InputField
             type="password"
@@ -56,17 +56,16 @@ const Login: React.FC = () => {
             required
             name="password"
           />
-
           {/* Sign In Button */}
           <AuthButton text="Sign In" onClick={handleLogin} />
-
           {/* Sign Up Link */}
-          <p>
-            Don’t have an account?{' '}
-            <a href="/signup" style={{ color: 'black', textDecoration: 'none' }}>
-              Click here to sign up.
-            </a>
-          </p>
+          Don't have an account?{''}
+          <button
+            onClick={handleSignupRedirect}
+            style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
+          >
+            Click here to sign up!.
+          </button>
         </form>
       </div>
     </div>

@@ -15,6 +15,7 @@ const SignUp: React.FC = () => {
     error,
     success,
     handleSignUp,
+    handleLoginRedirect,
   } = useSignUp();
 
   return (
@@ -41,7 +42,9 @@ const SignUp: React.FC = () => {
       >
         <form onSubmit={handleSignUp} style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
           {/* Title */}
-          <h2 style={{ marginBottom: '2rem' }}>Create Your Account</h2>
+          <h4 className="fw-bold" style={{ marginBottom: '2rem' }}>
+            Welcome to the Recipe World! 🍳
+          </h4>
 
           {/* Error/Success Messages */}
           {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
@@ -96,10 +99,13 @@ const SignUp: React.FC = () => {
 
           {/* Sign In Link */}
           <p>
-            Already have an account?{' '}
-            <a href="/login" style={{ color: 'black', textDecoration: 'none' }}>
-              Click here to sign in.
-            </a>
+            Already have an account?
+            <button
+              onClick={handleLoginRedirect}
+              style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
+            >
+              Click here to login In!.
+            </button>
           </p>
         </form>
       </div>
