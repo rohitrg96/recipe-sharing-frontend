@@ -76,7 +76,6 @@ export const useAddRecipe = () => {
       } else {
         setUploadStatus(response.data.message || 'Failed to upload image.');
       }
-      console.log('Upload response:', response);
     } catch (error) {
       setUploadStatus('Failed to upload image.');
       console.error('Upload error:', error);

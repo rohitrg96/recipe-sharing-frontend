@@ -3,11 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaUser } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import api from '../api/axiosInstance';
-import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
-  const { logout } = useAuth();
-
   const navigate = useNavigate();
   const authToken = Cookies.get('authToken');
   const handleLogout = async () => {
@@ -18,7 +15,7 @@ const Navbar: React.FC = () => {
     });
 
     Cookies.remove('authToken'); // Remove the authToken cookie
-    logout();
+
     navigate('/login'); // Redirect to login page
   };
   const [showDropdown, setShowDropdown] = useState(false);
@@ -28,7 +25,7 @@ const Navbar: React.FC = () => {
       <div className="container-fluid">
         {/* Brand Logo */}
         <Link className="navbar-brand gradient-bg display-3 fs-2 fw-bold" to="/">
-          Tasty Tales
+          🍴 Tasty Tales
         </Link>
 
         {/* Right Side Link */}

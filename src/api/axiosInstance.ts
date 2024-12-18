@@ -28,7 +28,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
       // Handle unauthorized or missing token errors
-      alert('Session expired. Please log in again.');
+      alert('Your session may have expired, or you might need to log in first to continue.');
       Cookies.remove('authToken'); // Clear the invalid token
       window.location.href = '/login'; // Redirect to login page
     }
