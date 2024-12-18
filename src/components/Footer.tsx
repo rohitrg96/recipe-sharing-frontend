@@ -1,4 +1,13 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <footer className="bg-light p-2 text-dark bg-opacity-60 text-dark py-4 mt-4">
       <div className="container">
@@ -7,7 +16,7 @@ const Footer: React.FC = () => {
             <h5>About</h5>
             <p>
               Tasty Tales: Where Flavor Meets Storytelling Every great meal has a story, and every story deserves to be
-              shared.{' '}
+              shared.
             </p>
           </div>
           <div className="col-12 col-md-4 mb-3">
@@ -21,20 +30,12 @@ const Footer: React.FC = () => {
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/about" className="text-dark">
+                <button onClick={() => handleNavigation('/about')} className="btn btn-link text-dark p-0">
                   About Us
-                </a>
+                </button>
               </li>
-              <li>
-                <a href="/privacy" className="text-dark">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="/terms" className="text-dark">
-                  Terms of Service
-                </a>
-              </li>
+              <li>Privacy Policy</li>
+              <li>Terms of Service</li>
             </ul>
           </div>
         </div>

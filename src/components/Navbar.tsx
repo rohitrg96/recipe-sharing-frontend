@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
           {authToken ? (
             <div className="dropdown">
               <button
-                className="btn btn-outline-success dropdown-toggle"
+                className="btn btn-outline-primary dropdown-toggle"
                 type="button"
                 id="accountDropdown"
                 onClick={() => setShowDropdown((prev) => !prev)}
@@ -48,11 +48,11 @@ const Navbar: React.FC = () => {
                       Add Recipe
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link className="dropdown-item" to="/my-recipes">
-                      My Recipes
+                  <li>
+                    <Link className="dropdown-item" to="/about">
+                      About Us
                     </Link>
-                  </li> */}
+                  </li>
                   <li>
                     <button className="dropdown-item" onClick={handleLogout}>
                       Log Out
