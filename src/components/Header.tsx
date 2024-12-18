@@ -32,10 +32,25 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange 
     <div className="mb-5">
       <div className="text-center">
         {/* Title */}
-        <h1 className="text-center  fw-bold display-4 my-4">
-          <i className="bi bi-egg-fried"></i> Recipes <i className="bi bi-egg-fried"></i>
+        <h1
+          className="text-center fw-bold display-4 my-4"
+          style={{
+            fontStyle: 'italic',
+            // color: 'red',
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          Recipes
         </h1>
-        <p className="mb-5 fw-bold">Explore thousands of mouthwatering recipes from every corner of the globe! 🍲</p>
+
+        <p
+          className="mb-5 fw-bold"
+          style={{
+            fontStyle: 'italic',
+          }}
+        >
+          Explore thousands of mouthwatering recipes from every corner of the globe! 🍲
+        </p>
 
         {/* Search Bar */}
         <div className="d-flex justify-content-center mb-3">

@@ -25,7 +25,7 @@ const ViewRecipe: React.FC = () => {
   } = useViewRecipe(recipeId);
 
   if (!recipe) {
-    return <div className="text-center mt-5 text-danger">404 Page Not Found</div>;
+    return <h1 className="text-center mt-5 text-danger">Loading.....</h1>;
   }
 
   return (

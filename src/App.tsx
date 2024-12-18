@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import AddRecipe from './pages/AddRecipe';
 import ViewRecipe from './pages/ViewRecipe';
+import About from './pages/About';
 
 import './assets/css/global.css';
 
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/add-recipe" element={<AddRecipe />} />
           <Route path="/recipe/:recipeId" element={<ViewRecipe />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </div>
