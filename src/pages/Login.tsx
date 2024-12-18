@@ -10,17 +10,6 @@ const Login: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      {/* Left Section: Image */}
-      <div
-        style={{
-          flex: 1,
-          backgroundImage: 'url(images/auth.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
-
-      {/* Right Section: Content */}
       <div
         style={{
           flex: 1,
@@ -35,6 +24,9 @@ const Login: React.FC = () => {
           <h2 className="fw-bold" style={{ marginBottom: '2rem' }}>
             Welcome Back! 👋
           </h2>
+          {/* <h1 className="fw-bold" style={{ marginBottom: '2rem' }}>
+            🍴 Tasty Tales
+          </h1> */}
           {/* Success/Error Messages */}
           {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
           {success && <p style={{ color: 'green', marginBottom: '1rem' }}>{success}</p>}

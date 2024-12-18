@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
       <div className="container-fluid">
         {/* Brand Logo */}
         <Link className="navbar-brand gradient-bg display-3 fs-2 fw-bold" to="/">
-          Tasty Tales
+          🍴 Tasty Tales
         </Link>
 
         {/* Right Side Link */}

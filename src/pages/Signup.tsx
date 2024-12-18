@@ -20,17 +20,6 @@ const SignUp: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      {/* Left Section: Image */}
-      <div
-        style={{
-          flex: 1,
-          backgroundImage: 'url(images/auth.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
-
-      {/* Right Section: Content */}
       <div
         style={{
           flex: 1,
