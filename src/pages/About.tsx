@@ -13,64 +13,51 @@ const About: React.FC = () => {
     <div className="d-flex flex-column bg-light text-dark vh-100">
       <Navbar />
 
-      <div className="container my-auto">
+      <div className="container my-auto mb-5 mt-5">
         <div className="row align-items-center">
-          {/* Left: Static Image */}
-          <div className="col-md-6">
-            <img
-              src="https://res.cloudinary.com/ddaq6new3/image/upload/v1734538126/tasty-tales-images/vzkmf1lhgvjg05qthaiq.webp"
-              alt="Tasty Tales"
-              // className="img-fluid rounded shadow-lg"
-              style={{ border: '5px solid #ffc107', height: '600px', width: '500px' }}
-            />
-          </div>
-
-          {/* Right: Text Section */}
-          <div className="col-md-6">
-            <h1
-              className="display-4 fw-bold mb-4 text-center"
-              style={{
-                color: '#007bff',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
-              }}
-            >
-              Welcome to Tasty Tales
-            </h1>
+          <h1
+            className="display-4 fw-bold mb-4 text-center"
+            style={{
+              color: '#007bff',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            Welcome to Tasty Tales
+          </h1>
+          <p
+            className="lead text-center"
+            style={{
+              fontSize: '1.25rem',
+              color: '#333',
+            }}
+          >
+            Tasty Tales is your go-to destination for exploring and sharing delicious recipes. From quick bites to
+            gourmet dishes, you can find it all here. Join us in discovering culinary magic and sharing the joy of
+            cooking.
+          </p>
+          <blockquote className="blockquote text-center my-4" style={{ fontStyle: 'italic', color: '#007bff' }}>
             <p
-              className="lead text-center"
               style={{
-                fontSize: '1.25rem',
-                color: '#333',
+                fontSize: '1.5rem',
+                textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
               }}
             >
-              Tasty Tales is your go-to destination for exploring and sharing delicious recipes. From quick bites to
-              gourmet dishes, you can find it all here. Join us in discovering culinary magic and sharing the joy of
-              cooking.
+              "Cooking is the art of turning ingredients into memories."
             </p>
-            <blockquote className="blockquote text-center my-4" style={{ fontStyle: 'italic', color: '#007bff' }}>
-              <p
-                style={{
-                  fontSize: '1.5rem',
-                  textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
-                }}
-              >
-                "Cooking is the art of turning ingredients into memories."
-              </p>
-            </blockquote>
-            <div className="text-center">
-              <button
-                onClick={handleExploreClick}
-                className="btn btn-warning btn-lg shadow-sm px-5 py-2"
-                style={{
-                  background: 'linear-gradient(45deg, #ff6f61, #ffc107)',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '50px',
-                }}
-              >
-                Start Exploring Recipes
-              </button>
-            </div>
+          </blockquote>
+          <div className="text-center">
+            <button
+              onClick={handleExploreClick}
+              className="btn btn-warning btn-lg shadow-sm px-5 py-2"
+              style={{
+                background: 'linear-gradient(45deg, #ff6f61, #ffc107)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50px',
+              }}
+            >
+              Start Exploring Recipes
+            </button>
           </div>
         </div>
 
