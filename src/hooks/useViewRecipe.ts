@@ -64,7 +64,6 @@ export const useViewRecipe = (recipeId: string) => {
       try {
         const fetchedRecipe = await fetchRecipeById(recipeId);
         const userFeedback = await fetchUserFeedback(recipeId);
-        console.log(userFeedback.data, 12);
         setRecipe(fetchedRecipe);
         setUserComment(userFeedback.data.checkIfUserhasCommented);
         setUserRating(userFeedback.data.checkIfUserhasRated);

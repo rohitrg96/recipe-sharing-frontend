@@ -30,7 +30,6 @@ const useSignUp = () => {
     if (response.success) {
       setSuccess('User registered successfully!');
       setError(''); // Clear any previous error message
-      console.log('API Response:', response.data);
 
       // Clear form fields after successful registration
       setFirstname('');
