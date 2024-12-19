@@ -13,7 +13,7 @@ This is the frontend for the Recipe-Sharing Platform built using React, TypeScri
 ### Search & Filter
 
 - **Search by Ingredients:** Search bar to find recipes by ingredients.
-- **Filter by Rating or Time:** Dropdown options to filter recipes by rating or preparation time.
+- **Filter by Rating or Time:** Options to filter recipes by rating or preparation time.
 
 ### Ratings & Comments
 
