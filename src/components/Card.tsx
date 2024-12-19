@@ -63,6 +63,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
             }}
+            title={recipe.title}
           >
             {recipe.title}
           </h4>
