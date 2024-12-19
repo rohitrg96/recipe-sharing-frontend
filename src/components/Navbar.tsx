@@ -24,7 +24,15 @@ const Navbar: React.FC = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         {/* Brand Logo */}
-        <Link className="navbar-brand gradient-bg display-3 fs-2 fw-bold" to="/">
+        <Link
+          className="navbar-brand gradient-bg display-3 fs-2 fw-bold"
+          style={{
+            fontStyle: 'italic',
+            // color: 'red',
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+          }}
+          to="/"
+        >
           🍴 Tasty Tales
         </Link>
 

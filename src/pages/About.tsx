@@ -10,7 +10,7 @@ const About: React.FC = () => {
   };
 
   return (
-    <div className="d-flex flex-column bg-light text-dark vh-100">
+    <div className="d-flex flex-column  text-dark vh-100">
       <Navbar />
 
       <div className="container my-auto mb-5 mt-5">
