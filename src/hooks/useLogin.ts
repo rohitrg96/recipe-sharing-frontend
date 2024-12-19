@@ -37,6 +37,9 @@ const useLogin = () => {
   const handleSignupRedirect = () => {
     navigate('/signup');
   };
+  const handleHomeRedirect = () => {
+    navigate('/');
+  };
 
   return {
     userName,
@@ -47,6 +50,7 @@ const useLogin = () => {
     success,
     handleLogin,
     handleSignupRedirect,
+    handleHomeRedirect,
   };
 };
 
