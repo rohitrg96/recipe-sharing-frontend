@@ -1,50 +1,105 @@
-# React + TypeScript + Vite
+# Recipe-Sharing Platform Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Recipe-Sharing Platform built using React, TypeScript, and Vite. The frontend allows users to interact with the backend APIs for managing recipes, ratings, comments, and user authentication.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Recipe Management
 
-## Expanding the ESLint configuration
+- **Create Recipe:** Form to create recipes with a title, ingredients, steps, and an image upload feature.
+- **View Recipes:** Display a list of all available recipes with pagination.
+- **Recipe Details:** View detailed information about a specific recipe, including ingredients, preparation steps, and an image.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Search & Filter
 
-- Configure the top-level `parserOptions` property like this:
+- **Search by Ingredients:** Search bar to find recipes by ingredients.
+- **Filter by Rating or Time:** Dropdown options to filter recipes by rating or preparation time.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Ratings & Comments
+
+- **Rate Recipes:** Option to rate recipes out of 5 stars.
+- **Comment on Recipes:** Users can leave and update comments on recipes.
+
+### User Authentication
+
+- User-friendly interface for user registration, login, and logout.
+- Restrict actions like view detail page, rating and commenting to authenticated users.
+
+## Tech Stack
+
+- **React**: Frontend library
+- **TypeScript**: Type-safe development
+- **Vite**: Modern development build tool
+- **Bootstrap 5**: Styling framework
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) installed (v16 or higher recommended)
+- A running backend server (refer to [backend repository](https://github.com/your-username/recipe-sharing-backend))
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/recipe-sharing-frontend.git
+   cd recipe-sharing-frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Build the project (for production):
+
+   ```bash
+   npm run build
+   ```
+
+## Project Structure
+
+```
+├── public            # Static assets
+├── src
+│   ├── components    # Reusable components (e.g., forms, recipe cards)
+│   ├── hooks         # Custom hooks for state and logic reuse
+│   ├── pages         # Page components (e.g., Add Recipe, Recipe Details, My Recipes)
+│   ├── services      # API calls and integrations
+│   ├── utils         # Backend API constants and utility functions
+│   ├── App.tsx       # Application entry point
+│   ├── main.tsx      # Vite entry point
+├── .env              # Environment variables
+├── tsconfig.json     # TypeScript configuration
+├── vite.config.ts    # Vite configuration
+├── package.json      # Project metadata
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Styling
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- The project uses **Bootstrap 5** for responsive design and styling.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Deployment
+
+This frontend can be deployed on any static hosting platform. To deploy on Vercel:
+
+1. Install the Vercel CLI:
+
+   ```bash
+   npm install -g vercel
+   ```
+
+2. Deploy:
+
+   ```bash
+   vercel
+   ```
+
+3. Set the environment variables in the Vercel dashboard.
