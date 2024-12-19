@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               )}
             </div>
           ) : (
-            <Link to="/login" className="btn btn-outline-success d-flex align-items-center">
+            <Link to="/login" className="btn btn-outline-primary d-flex align-items-center">
               <FaSignInAlt className="me-2" /> Log In
             </Link>
           )}

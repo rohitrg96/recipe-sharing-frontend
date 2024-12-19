@@ -5,8 +5,17 @@ import useLogin from '../hooks/useLogin';
 
 const Login: React.FC = () => {
   // Destructure the hook to get the necessary variables and functions
-  const { userName, setUserName, password, setPassword, error, success, handleLogin, handleSignupRedirect } =
-    useLogin();
+  const {
+    userName,
+    setUserName,
+    password,
+    setPassword,
+    error,
+    success,
+    handleLogin,
+    handleSignupRedirect,
+    handleHomeRedirect,
+  } = useLogin();
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -57,6 +66,12 @@ const Login: React.FC = () => {
             style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
           >
             Click here to sign up!.
+          </button>
+          <button
+            onClick={handleHomeRedirect}
+            style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
+          >
+            Not logging in? Head back to the home page!
           </button>
         </form>
       </div>

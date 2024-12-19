@@ -47,6 +47,9 @@ const useSignUp = () => {
   const handleLoginRedirect = () => {
     navigate('/login');
   };
+  const handleHomeRedirect = () => {
+    navigate('/');
+  };
 
   // Return state values and handlers to be used in the component
   return {
@@ -62,6 +65,7 @@ const useSignUp = () => {
     success,
     handleSignUp,
     handleLoginRedirect,
+    handleHomeRedirect,
   };
 };
 

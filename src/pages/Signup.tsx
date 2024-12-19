@@ -16,6 +16,7 @@ const SignUp: React.FC = () => {
     success,
     handleSignUp,
     handleLoginRedirect,
+    handleHomeRedirect,
   } = useSignUp();
 
   return (
@@ -94,6 +95,12 @@ const SignUp: React.FC = () => {
               style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
             >
               Click here to login In!.
+            </button>
+            <button
+              onClick={handleHomeRedirect}
+              style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
+            >
+              Not signing up? Explore more on the home page!
             </button>
           </p>
         </form>
