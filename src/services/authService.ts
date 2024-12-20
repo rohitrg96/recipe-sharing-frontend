@@ -22,9 +22,14 @@ export const signUpUser = async (userData: SignUpRequest) => {
     });
     return { success: true, data: response.data };
   } catch (error: any) {
-    const errorMessages =
-      error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') || 'Something went wrong';
-
+    let errorMessages;
+    if (error.response.data.errors) {
+      errorMessages =
+        error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') ||
+        'Something went wrong';
+    } else {
+      errorMessages = error.response.data.message;
+    }
     return { success: false, error: errorMessages };
   }
 };
