@@ -1,4 +1,5 @@
 import React from 'react';
+import './AuthButton.css'; // Import the CSS file
 
 interface AuthButtonProps {
   text: string;
@@ -7,20 +8,11 @@ interface AuthButtonProps {
 
 const AuthButton: React.FC<AuthButtonProps> = ({ text, onClick }) => {
   return (
-    <div style={{ marginBottom: '1.5rem' }}>
+    <div className="auth-button-container">
       <button
         type="submit"
         onClick={onClick}
-        style={{
-          width: '100%',
-          padding: '0.75rem',
-          fontSize: '1rem',
-          borderRadius: '4px',
-          border: 'none',
-          backgroundColor: '#007BFF',
-          color: '#fff',
-          cursor: 'pointer',
-        }}
+        className="auth-button" // Use the CSS class here
       >
         {text}
       </button>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
-import Login from './pages/Login';
-import SignUp from './pages/Signup';
-import AddRecipe from './pages/AddRecipe';
-import ViewRecipe from './pages/ViewRecipe';
-import About from './pages/About';
+import Login from './pages/Login/Login';
+import SignUp from './pages/Signup/Signup';
+import AddRecipe from './pages/AddRecipe/AddRecipe';
+import ViewRecipe from './pages/ViewRecipe/ViewRecipe';
+import About from './pages/About/About';
 
 import './assets/css/global.css';
 

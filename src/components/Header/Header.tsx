@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import './Header.css';
 
 interface HeaderSectionProps {
   onSearch: (searchTerm: string) => void;
-  onFilterChange: (filters: { minRating?: string; maxPreparationTime?: string }) => void;
+  onFilterChange: (filters: {
+    minRating?: string;
+    maxPreparationTime?: string;
+  }) => void;
 }
 
-const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange }) => {
+const HeaderSection: React.FC<HeaderSectionProps> = ({
+  onSearch,
+  onFilterChange,
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [minRating, setMinRating] = useState<string | ''>('');
   const [maxPreparationTime, setMaxPreparationTime] = useState<string | ''>('');
@@ -22,7 +29,9 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange 
     onFilterChange({ minRating: value, maxPreparationTime });
   };
 
-  const handleMaxPreparationTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMaxPreparationTimeChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = e.target.value ? e.target.value : '';
     setMaxPreparationTime(value);
     onFilterChange({ minRating, maxPreparationTime: value });
@@ -32,31 +41,20 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange 
     <div className="mb-5">
       <div className="text-center">
         {/* Title */}
-        <h1
-          className="text-center fw-bold display-4 my-4"
-          style={{
-            fontStyle: 'italic',
-            // color: 'red',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
-          }}
-        >
+        <h1 className="header-title text-center fw-bold display-4 my-4">
           Recipes
         </h1>
 
-        <p
-          className="mb-5 fw-bold"
-          style={{
-            fontStyle: 'italic',
-          }}
-        >
-          Explore thousands of mouthwatering recipes from every corner of the globe! 🍲
+        <p className="header-description mb-5 fw-bold">
+          Explore thousands of mouthwatering recipes from every corner of the
+          globe! 🍲
         </p>
 
         {/* Search Bar */}
         <div className="d-flex justify-content-center mb-3">
           <input
             type="search"
-            className="form-control w-50 me-2"
+            className="w-50 form-control"
             placeholder="Your Ingredients, Our Recipe Ideas"
             value={searchTerm}
             onChange={handleSearchChange}
@@ -64,10 +62,10 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange 
         </div>
 
         {/* Filters */}
-        <div className="d-flex justify-content-center gap-3">
+        <div className="header-filters">
           {/* Min Rating */}
-          <div>
-            <label htmlFor="minRating" className="form-label fw-bold">
+          <div className="filter-container">
+            <label htmlFor="minRating" className="form-label filter-label">
               Min Rating
             </label>
             <input
@@ -83,8 +81,11 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ onSearch, onFilterChange 
           </div>
 
           {/* Max Preparation Time */}
-          <div>
-            <label htmlFor="maxPreparationTime" className="form-label fw-bold">
+          <div className="filter-container">
+            <label
+              htmlFor="maxPreparationTime"
+              className="form-label filter-label"
+            >
               Max Prep Time (mins)
             </label>
             <input

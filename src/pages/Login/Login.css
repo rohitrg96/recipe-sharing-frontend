@@ -1,0 +1,42 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+.login-form-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-title {
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.login-message {
+  margin-bottom: 1rem;
+}
+
+.login-message--error {
+  color: red;
+}
+
+.login-message--success {
+  color: green;
+}
+
+.login-button-link {
+  color: black;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
