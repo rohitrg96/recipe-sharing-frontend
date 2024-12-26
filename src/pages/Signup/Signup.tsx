@@ -1,5 +1,5 @@
 import React from 'react';
-import './SignUp.css'; // Import external CSS
+import './Signup.css';
 import InputField from '../../components/InputField/AuthInputFeild/AuthInputField';
 import AuthButton from '../../components/AuthButton/AuthButton';
 import useSignUp from '../../hooks/useSignUp';
