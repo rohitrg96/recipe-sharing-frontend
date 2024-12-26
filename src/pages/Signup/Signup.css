@@ -1,0 +1,62 @@
+.signup-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Centering content */
+.signup-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Styling the form */
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Title styling */
+.signup-title {
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* Error and success messages */
+.signup-error {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.signup-success {
+  color: green;
+  margin-bottom: 1rem;
+}
+
+/* Name fields container */
+.signup-name-fields {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Inputs */
+.signup-input {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+/* Links */
+.signup-links {
+  margin-top: 1rem;
+}
+
+.signup-link-button {
+  color: black;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}

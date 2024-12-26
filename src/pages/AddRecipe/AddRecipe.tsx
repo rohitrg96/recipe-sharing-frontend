@@ -1,10 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RecipeInputField from '../components/InputField/RecipeInputFields';
-import DynamicList from '../components/InputField/DynamicListInput';
-import { useAddRecipe } from '../hooks/useAddRecipe';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import './AddRecipe.css'; // Import the external CSS file
+import RecipeInputField from '../../components/InputField/RecipeInputFields/RecipeInputFields';
+import DynamicList from '../../components/InputField/DynamicListInput/DynamicListInput';
+import { useAddRecipe } from '../../hooks/useAddRecipe';
+import Navbar from '../../components/InputField/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 const AddRecipe: React.FC = () => {
   const {
@@ -34,9 +35,9 @@ const AddRecipe: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="d-flex justify-content-center">
-        <div className="p-4" style={{ width: '70%' }}>
-          <h2 className="mb-4">Add Recipe</h2>
+      <div className="add-recipe-container">
+        <div className="add-recipe-form">
+          <h2 className="add-recipe-title">Add Recipe</h2>
 
           {/* Display Success or Error Messages */}
           {success && (
@@ -66,18 +67,14 @@ const AddRecipe: React.FC = () => {
                 onAdd={handleAddIngredient}
                 onChange={handleIngredientChange}
                 onRemove={handleRemoveIngredient}
-                inputStyle={{ borderColor: 'black' }}
               />
-
               <DynamicList
                 label="Steps"
                 items={steps}
                 onAdd={handleAddStep}
                 onChange={handleStepChange}
                 onRemove={handleRemoveStep}
-                inputStyle={{ borderColor: 'black' }}
               />
-
               <RecipeInputField
                 label="Preparation Time (mins)"
                 id="prepTime"
@@ -88,33 +85,31 @@ const AddRecipe: React.FC = () => {
               />
             </div>
             <div className="col-md-4">
-              <div className="mb-3">
+              <div className="upload-section">
                 <label htmlFor="image" className="form-label fw-bold">
                   Upload Image
                 </label>
                 <input
                   type="file"
                   id="image"
-                  className="form-control"
-                  style={{ borderColor: 'black' }}
+                  className="form-control upload-input"
                   accept="image/*"
                   onChange={handleImageChange}
                   ref={fileInputRef}
                 />
 
                 {imagePreview ? (
-                  <div className="mt-3">
+                  <div className="image-preview-container">
                     <img
                       src={imagePreview}
                       alt="Preview"
-                      style={{
-                        width: '100%',
-                        height: '200px',
-                        objectFit: 'cover',
-                        border: '1px solid black',
-                      }}
+                      className="image-preview"
                     />
-                    <button type="button" className="btn btn-danger mt-2" onClick={handleRemoveImage}>
+                    <button
+                      type="button"
+                      className="btn btn-danger mt-2"
+                      onClick={handleRemoveImage}
+                    >
                       Remove Image
                     </button>
                   </div>
@@ -122,7 +117,12 @@ const AddRecipe: React.FC = () => {
                   <p className="mt-3 text-muted">No file chosen</p>
                 )}
 
-                <button type="button" className="btn btn-primary mt-3" onClick={handleUpload} disabled={!imagePreview}>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-3 upload-button"
+                  onClick={handleUpload}
+                  disabled={!imagePreview}
+                >
                   Upload Image
                 </button>
 
@@ -130,7 +130,10 @@ const AddRecipe: React.FC = () => {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary mt-3">
+            <button
+              type="submit"
+              className="btn btn-primary mt-3 submit-button"
+            >
               Submit
             </button>
           </form>

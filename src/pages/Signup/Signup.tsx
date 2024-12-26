@@ -1,6 +1,8 @@
-import InputField from '../components/InputField/AuthInputField';
-import AuthButton from '../components/AuthButton';
-import useSignUp from '../hooks/useSignUp';
+import React from 'react';
+import './SignUp.css'; // Import external CSS
+import InputField from '../../components/InputField/AuthInputFeild/AuthInputField';
+import AuthButton from '../../components/AuthButton/AuthButton';
+import useSignUp from '../../hooks/useSignUp';
 
 const SignUp: React.FC = () => {
   const {
@@ -20,28 +22,18 @@ const SignUp: React.FC = () => {
   } = useSignUp();
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2rem',
-        }}
-      >
-        <form onSubmit={handleSignUp} style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
+    <div className="signup-container">
+      <div className="signup-content">
+        <form onSubmit={handleSignUp} className="signup-form">
           {/* Title */}
-          <h4 className="fw-bold" style={{ marginBottom: '2rem' }}>
-            Welcome to the Recipe World! 🍳
-          </h4>
+          <h4 className="signup-title">Welcome to the Recipe World! 🍳</h4>
 
           {/* Error/Success Messages */}
-          {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
-          {success && <p style={{ color: 'green', marginBottom: '1rem' }}>{success}</p>}
+          {error && <p className="signup-error">{error}</p>}
+          {success && <p className="signup-success">{success}</p>}
 
           {/* Firstname and Lastname */}
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+          <div className="signup-name-fields">
             <InputField
               type="text"
               placeholder="First Name"
@@ -49,7 +41,6 @@ const SignUp: React.FC = () => {
               onChange={(e) => setFirstname(e.target.value)}
               required
               name="firstname"
-              style={{ flex: 1 }}
             />
             <InputField
               type="text"
@@ -58,7 +49,6 @@ const SignUp: React.FC = () => {
               onChange={(e) => setLastname(e.target.value)}
               required
               name="lastname"
-              style={{ flex: 1 }}
             />
           </div>
 
@@ -70,7 +60,6 @@ const SignUp: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             name="email"
-            style={{ marginBottom: '1rem', width: '100%' }}
           />
 
           {/* Password Input */}
@@ -81,25 +70,20 @@ const SignUp: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             name="password"
-            style={{ marginBottom: '1.5rem', width: '100%' }}
           />
 
           {/* Sign Up Button */}
           <AuthButton text="Sign Up" onClick={handleSignUp} />
 
           {/* Sign In Link */}
-          <p>
-            Already have an account?
+          <p className="signup-links">
             <button
               onClick={handleLoginRedirect}
-              style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
+              className="signup-link-button"
             >
-              Click here to login In!.
+              Already have an account? Click here to login!
             </button>
-            <button
-              onClick={handleHomeRedirect}
-              style={{ color: 'black', background: 'transparent', border: 'none', cursor: 'pointer' }}
-            >
+            <button onClick={handleHomeRedirect} className="signup-link-button">
               Not signing up? Explore more on the home page!
             </button>
           </p>

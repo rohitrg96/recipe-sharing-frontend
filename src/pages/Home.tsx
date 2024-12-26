@@ -1,14 +1,21 @@
 import { useFetchRecipes } from '../hooks/useFetchRecipes';
-import Card from '../components/Card';
+import Card from '../components/Card/Card';
 import { Recipe } from '../types/Recipe';
-import HeaderSection from '../components/Header';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import HeaderSection from '../components/Header/Header';
+import Navbar from '../components/InputField/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import Pagination from '../components/pagination';
 
 const HomePage: React.FC = () => {
-  const { recipes, error, totalpages, handleSearch, handlePageChange, currentPage, handleFilterChange } =
-    useFetchRecipes();
+  const {
+    recipes,
+    error,
+    totalpages,
+    handleSearch,
+    handlePageChange,
+    currentPage,
+    handleFilterChange,
+  } = useFetchRecipes();
 
   if (error) {
     return <div>{error}</div>;
@@ -20,7 +27,10 @@ const HomePage: React.FC = () => {
       <Navbar />
 
       {/* Title Section */}
-      <HeaderSection onSearch={handleSearch} onFilterChange={handleFilterChange} />
+      <HeaderSection
+        onSearch={handleSearch}
+        onFilterChange={handleFilterChange}
+      />
 
       {/* Cards Section */}
       <div className="container  ">
@@ -36,7 +46,11 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalpages} onPageChange={handlePageChange} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalpages}
+        onPageChange={handlePageChange}
+      />
 
       {/* Footer */}
       <Footer />

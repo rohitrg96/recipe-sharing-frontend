@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaUser } from 'react-icons/fa';
 import Cookies from 'js-cookie';
-import api from '../api/axiosInstance';
+import api from '../../../api/axiosInstance';
+import './Navbar.css';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -26,14 +27,9 @@ const Navbar: React.FC = () => {
         {/* Brand Logo */}
         <Link
           className="navbar-brand gradient-bg display-3 fs-2 fw-bold"
-          style={{
-            fontStyle: 'italic',
-            // color: 'red',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
-          }}
           to="/"
         >
-          🍴 Tasty Tales
+          Tasty Tales
         </Link>
 
         {/* Right Side Link */}
@@ -50,7 +46,10 @@ const Navbar: React.FC = () => {
                 <FaUser className="me-2" /> My Account
               </button>
               {showDropdown && (
-                <ul className="dropdown-menu show" aria-labelledby="accountDropdown">
+                <ul
+                  className="dropdown-menu show"
+                  aria-labelledby="accountDropdown"
+                >
                   <li>
                     <Link className="dropdown-item" to="/add-recipe">
                       Add Recipe
@@ -70,7 +69,10 @@ const Navbar: React.FC = () => {
               )}
             </div>
           ) : (
-            <Link to="/login" className="btn btn-outline-primary d-flex align-items-center">
+            <Link
+              to="/login"
+              className="btn btn-outline-primary d-flex align-items-center"
+            >
               <FaSignInAlt className="me-2" /> Log In
             </Link>
           )}

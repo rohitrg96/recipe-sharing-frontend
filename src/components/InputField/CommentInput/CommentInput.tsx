@@ -7,10 +7,15 @@ interface CommentInputProps {
   onSubmit: () => void;
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({ label, comment, onChange, onSubmit }) => {
+const CommentInput: React.FC<CommentInputProps> = ({
+  label,
+  comment,
+  onChange,
+  onSubmit,
+}) => {
   return (
     <div>
-      <label htmlFor="commentInput" className="form-label fw-bold">
+      <label htmlFor="commentInput" className="form-label fw-bold ">
         {label}
       </label>
       <textarea
@@ -20,7 +25,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ label, comment, onChange, o
         value={comment}
         onChange={(e) => onChange(e.target.value)}
       ></textarea>
-      <button className="btn btn-primary" onClick={onSubmit}>
+      <button className="btn btn-primary " onClick={onSubmit}>
         Submit
       </button>
     </div>

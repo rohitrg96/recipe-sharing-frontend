@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import './Card.css';
 
 export interface RecipeCardProps {
   recipe: {
@@ -29,40 +30,34 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
   return (
     <>
-      <div className="card shadow-sm mb-4" style={{ cursor: 'pointer' }} onClick={handleCardClick}>
+      <div
+        className="card shadow-sm mb-4 card-container"
+        onClick={handleCardClick}
+      >
         {recipe.image ? (
           <img
             src={recipe.image}
-            className="card-img-top"
+            className="card-img-top card-img"
             alt={recipe.title}
-            style={{ objectFit: 'cover', height: '12rem' }}
           />
         ) : (
-          <div
-            className="d-flex justify-content-center align-items-center bg-light"
-            style={{ height: '12rem', color: '#6c757d' }}
-          >
+          <div className="d-flex justify-content-center align-items-center bg-light card-no-image">
             No Image Available
           </div>
         )}
-        <div className="card-body d-flex flex-column justify-content-between">
-          <h4 className="card-title text-center text-truncate">
-            <span style={{ color: 'gold' }}>★ ★ ★ ★ ★</span>
+        <div className="card-body card-body-content">
+          <h4 className="card-title">
+            <span className="star-color">★ ★ ★ ★ ★</span>
           </h4>
 
-          <p className="card-title text-center text-truncate fw-bold">
+          <p className="card-title card-reviews">
             {recipe.starsCount > 0
               ? `${recipe.starsCount} Reviews / ${recipe.averageStars.toFixed(1)} Average`
               : 'Be the first to review!'}
           </p>
 
           <h4
-            className="card-title text-center text-truncate fw-bolder text-capitalize"
-            style={{
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-            }}
+            className="card-title card-title text-capitalize fw-bolder"
             title={recipe.title}
           >
             {recipe.title}
@@ -72,14 +67,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
       {/* Modal for Authentication Alert */}
       <div
-        className={`modal fade ${showModal ? 'show' : ''}`}
+        className={`modal fade card-modal ${showModal ? 'show' : ''}`}
         tabIndex={-1}
         aria-labelledby="loginRequiredModalLabel"
         aria-hidden={!showModal}
-        style={{ display: showModal ? 'block' : 'none' }}
       >
-        <div className="modal-dialog">
-          <div className="modal-content">
+        <div className="modal-dialog card-modal-dialog">
+          <div className="modal-content card-modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="loginRequiredModalLabel">
                 Login Required
@@ -93,13 +87,23 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               ></button>
             </div>
             <div className="modal-body">
-              <p>You need to log in first to view the details of this recipe.</p>
+              <p>
+                You need to log in first to view the details of this recipe.
+              </p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleCloseModal}
+              >
                 Close
               </button>
-              <button type="button" className="btn btn-primary" onClick={() => navigate('/login')}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => navigate('/login')}
+              >
                 Login
               </button>
             </div>
