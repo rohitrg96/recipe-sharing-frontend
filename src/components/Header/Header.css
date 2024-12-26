@@ -1,0 +1,23 @@
+.header-title {
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-description {
+  font-style: italic;
+}
+
+.header-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-label {
+  font-weight: bold;
+}

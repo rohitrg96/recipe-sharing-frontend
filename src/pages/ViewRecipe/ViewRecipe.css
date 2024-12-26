@@ -1,0 +1,117 @@
+.recipe-image {
+  object-fit: cover;
+  width: 100%; /* Ensures the image adjusts to its container's width */
+  max-height: 400px;
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .recipe-image {
+    max-height: 350px; /* Smaller height for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .recipe-image {
+    max-height: 350px; /* Further adjustment for very small screens */
+  }
+}
+
+.no-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 500px;
+  font-size: 1.2rem;
+  color: #6c757d;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-title {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.section-heading {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.comment-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-text {
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.edit-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.modal-dialog {
+  max-width: 600px; /* Increased width */
+  width: 90%; /* Adjust to your desired responsiveness */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rating-stars .star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #e4e5e9;
+  background-color: black;
+  margin: 2px;
+}
+
+.rating-stars .star.active {
+  color: #ffc107;
+}
+
+.top-right-close {
+  position: absolute;
+  top: 0.5rem; /* Adjust as needed */
+  right: 0.5rem; /* Adjust as needed */
+  z-index: 1060;
+}

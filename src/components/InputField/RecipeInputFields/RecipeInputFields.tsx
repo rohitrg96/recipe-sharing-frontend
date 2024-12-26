@@ -9,7 +9,14 @@ interface RecipeInputFieldProps {
   required?: boolean;
 }
 
-const RecipeInputField: React.FC<RecipeInputFieldProps> = ({ label, id, type, value, onChange, required }) => {
+const RecipeInputField: React.FC<RecipeInputFieldProps> = ({
+  label,
+  id,
+  type,
+  value,
+  onChange,
+  required,
+}) => {
   return (
     <div className="mb-3">
       <label htmlFor={id} className="form-label fw-bold">
@@ -19,9 +26,10 @@ const RecipeInputField: React.FC<RecipeInputFieldProps> = ({ label, id, type, va
         type={type}
         id={id}
         className="form-control"
-        style={{ borderColor: 'black' }}
         value={value}
-        onChange={(e) => onChange(type === 'number' ? +e.target.value : e.target.value)}
+        onChange={(e) =>
+          onChange(type === 'number' ? +e.target.value : e.target.value)
+        }
         required={required}
       />
     </div>

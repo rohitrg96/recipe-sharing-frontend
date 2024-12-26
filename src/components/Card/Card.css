@@ -1,0 +1,59 @@
+.card-container {
+  cursor: pointer;
+}
+
+.card-img {
+  object-fit: cover;
+  height: 12rem;
+}
+
+.card-no-image {
+  height: 12rem;
+  color: #6c757d;
+}
+
+.card-body-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card-reviews {
+  font-weight: bold;
+  text-align: center;
+}
+
+.card-modal.show {
+  display: block;
+}
+
+.card-modal {
+  display: none;
+}
+
+.card-modal-dialog {
+  max-width: 500px;
+}
+
+.card-modal-content {
+  border-radius: 8px;
+}
+
+.card-modal-header .modal-title {
+  font-weight: bold;
+}
+
+.card-modal-footer .btn-secondary {
+  margin-right: 10px;
+}
+
+.star-color {
+  color: gold;
+}
