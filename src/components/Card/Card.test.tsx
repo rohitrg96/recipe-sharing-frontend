@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom'; // Wrapping component in BrowserRouter for navigation
 import RecipeCard from './Card';
 import Cookies from 'js-cookie';
@@ -35,11 +35,7 @@ describe('RecipeCard Component', () => {
   });
 
   it('should render the recipe card correctly', () => {
-    render(
-      <BrowserRouter>
-        <RecipeCard recipe={recipe} />
-      </BrowserRouter>,
-    );
+    render(<RecipeCard recipe={recipe} />);
 
     // Check if the recipe title and stars are displayed
     expect(screen.getByText('Delicious Recipe')).toBeInTheDocument();
