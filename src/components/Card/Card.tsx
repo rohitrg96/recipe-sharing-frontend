@@ -68,6 +68,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       {/* Modal for Authentication Alert */}
       <div
         className={`modal fade card-modal ${showModal ? 'show' : ''}`}
+        data-bs-toggle="modal"
         tabIndex={-1}
         aria-labelledby="loginRequiredModalLabel"
         aria-hidden={!showModal}
@@ -101,6 +102,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               </button>
               <button
                 type="button"
+                data-testid="login-redirect"
                 className="btn btn-primary"
                 onClick={() => navigate('/login')}
               >
