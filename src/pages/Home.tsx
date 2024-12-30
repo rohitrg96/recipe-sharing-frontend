@@ -4,7 +4,7 @@ import { Recipe } from '../types/Recipe';
 import HeaderSection from '../components/Header/Header';
 import Navbar from '../components/InputField/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
-import Pagination from '../components/pagination';
+import Pagination from '../components/Pagination/Pagination';
 
 const HomePage: React.FC = () => {
   const {
