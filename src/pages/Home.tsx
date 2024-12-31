@@ -41,6 +41,7 @@ const HomePage: React.FC = () => {
             recipes.map((recipe: Recipe) => (
               <div
                 data-testid="recipe-card"
+                data-id={recipe._id}
                 key={recipe._id}
                 className="col-12 col-sm-6 col-md-3"
               >

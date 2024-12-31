@@ -20,12 +20,17 @@ const CommentInput: React.FC<CommentInputProps> = ({
       </label>
       <textarea
         id="commentInput"
+        name="comment"
         className="form-control mb-3"
         rows={3}
         value={comment}
         onChange={(e) => onChange(e.target.value)}
       ></textarea>
-      <button className="btn btn-primary " onClick={onSubmit}>
+      <button
+        className="btn btn-primary "
+        data-testid="add-comment"
+        onClick={onSubmit}
+      >
         Submit
       </button>
     </div>

@@ -2,7 +2,7 @@ describe('User Authentication and Navigation Flow', () => {
   const testUser = {
     firstName: 'test',
     lastName: 'cypress',
-    email: 'test1cypress@gmil.com',
+    email: 'test12cypress@gmil.com',
     password: '123456',
   };
 

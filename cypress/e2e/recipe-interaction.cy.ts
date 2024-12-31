@@ -1,12 +1,12 @@
 describe('Recipe Details Interaction', () => {
   const testUser = {
-    email: 'test1cypress@gmil.com',
+    email: 'test12cypress@gmil.com',
     password: '123456',
   };
 
   const testRecipe = {
-    id: '676abd847af454fd92cafcf9', // Replace with a valid recipe ID for testing
-    title: 'Sample Recipe',
+    id: '676393951a3be1f32a1ddc70', // Replace with a valid recipe ID for testing
+    title: 'Creamy Mushroom Soup',
   };
 
   const initialComment = 'This is a test comment.';
@@ -15,7 +15,7 @@ describe('Recipe Details Interaction', () => {
   beforeEach(() => {
     // Log in as the test user
     cy.visit('/login');
-    cy.get('input[name=email]').type(testUser.email);
+    cy.get('input[name=username]').type(testUser.email);
     cy.get('input[name=password]').type(testUser.password);
     cy.get('button[type=submit]').click();
 
@@ -30,23 +30,31 @@ describe('Recipe Details Interaction', () => {
     cy.contains(testRecipe.title).should('be.visible');
 
     // Step 2: Rate the recipe
-    cy.get('.rating-stars') // Adjust selector based on your star rating component
+    cy.get('.rating-stars')
+      // Adjust selector based on your star rating component
       .find('[data-testid="star"]')
-      .eq(4) // Assuming 5-star rating, 0-based index
+      .then((ele) => {
+        console.log(ele, 1);
+      })
+      .eq(1)
+      // Assuming 5-star rating, 0-based index
       .click();
 
     // Step 3: Validate that the rating is stored
     cy.get('.rating-stars')
       .find('[data-testid="star"]')
-      .eq(4)
-      .should('have.class', 'selected'); // Adjust the class used for selected stars
+      .eq(1)
+      .should('have.class', 'active'); // Adjust the class used for selected stars
 
-    // Step 4: Ensure the rating cannot be changed
-    cy.get('.rating-stars').find('[data-testid="star"]').eq(2).click();
+    // // Step 4: Ensure the rating cannot be changed
+    cy.get('.rating-stars').find('[data-testid="star"]').eq(3).click();
     cy.get('.rating-stars')
       .find('[data-testid="star"]')
-      .eq(4)
-      .should('have.class', 'selected');
+      .eq(3)
+      .then((star) => {
+        console.log(star, 2);
+      })
+      .should('not.have.class', 'active');
 
     // Step 5: Add a comment
     cy.get('textarea[name=comment]').type(initialComment);
@@ -62,7 +70,7 @@ describe('Recipe Details Interaction', () => {
       .find('button[data-testid="edit-comment"]')
       .click();
     cy.get('textarea[name=comment]').clear().type(updatedComment);
-    cy.get('button[data-testid="update-comment"]').click();
+    cy.get('button[data-testid="add-comment"]').click();
 
     // Step 8: Validate the updated comment is displayed
     cy.get('.comments-list').contains(updatedComment).should('be.visible');
