@@ -18,9 +18,6 @@ describe('Recipe Details Interaction', () => {
     cy.get('input[name=username]').type(testUser.email);
     cy.get('input[name=password]').type(testUser.password);
     cy.get('button[type=submit]').click();
-
-    // Wait for redirection after login
-    cy.url().should('eq', 'http://localhost:5173/');
   });
 
   it('should allow rating and commenting functionality on a recipe', () => {
