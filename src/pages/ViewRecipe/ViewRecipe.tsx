@@ -76,8 +76,8 @@ const ViewRecipe: React.FC = () => {
           <p>No comments yet. Be the first to comment!</p>
         ) : (
           recipe.comments.map((c) => (
-            <div className="comments-list">
-              <div className="comment-box comment-item" key={c._id}>
+            <div className="comments-list" key={c._id}>
+              <div className="comment-box comment-item">
                 <h6 className="comment-author">
                   {c.user.firstName} {c.user.lastName}
                 </h6>
