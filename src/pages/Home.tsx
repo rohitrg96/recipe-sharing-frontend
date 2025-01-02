@@ -39,7 +39,12 @@ const HomePage: React.FC = () => {
             <div className="text-center">No recipes found</div> // Display the message if no recipes are found
           ) : (
             recipes.map((recipe: Recipe) => (
-              <div key={recipe._id} className="col-12 col-sm-6 col-md-3">
+              <div
+                data-testid="recipe-card"
+                data-id={recipe._id}
+                key={recipe._id}
+                className="col-12 col-sm-6 col-md-3"
+              >
                 <Card recipe={recipe} />
               </div>
             ))
