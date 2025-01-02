@@ -1,0 +1,37 @@
+/* Custom styling for the 404 page */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.text-center {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.display-1 {
+  font-size: 120px;
+}
+
+.text-danger {
+  color: #ff6347 !important;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn-danger {
+  background-color: #ff6347;
+  border-color: #ff6347;
+}
+
+.btn-danger:hover {
+  background-color: #ff4500;
+  border-color: #ff4500;
+}

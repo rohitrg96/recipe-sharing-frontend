@@ -6,24 +6,37 @@ import SignUp from './pages/Signup/Signup';
 import AddRecipe from './pages/AddRecipe/AddRecipe';
 import ViewRecipe from './pages/ViewRecipe/ViewRecipe';
 import About from './pages/About/About';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './assets/css/global.css';
+import { NotFound } from './components/NotFound/NotFound';
 
 const App: React.FC = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <div className="flex-grow-1 main-content">
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/add-recipe" element={<AddRecipe />} />
-          <Route path="/recipe/:recipeId" element={<ViewRecipe />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/" element={<HomePage />} />
+      <Route
+        path="/add-recipe"
+        element={
+          <ProtectedRoute>
+            <AddRecipe />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/recipe/:recipeId"
+        element={
+          <ProtectedRoute>
+            <ViewRecipe />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/about" element={<About />} />
+
+      {/* Catch-all route for undefined paths */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
