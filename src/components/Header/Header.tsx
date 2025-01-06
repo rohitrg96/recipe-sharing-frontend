@@ -36,16 +36,16 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
     setMaxPreparationTime(value);
     onFilterChange({ minRating, maxPreparationTime: value });
   };
-
+  // className=""
   return (
     <div className="mb-5">
-      <div className="text-center">
+      <div>
         {/* Title */}
         <h1 className="header-title text-center fw-bold display-4 my-4">
           Recipes
         </h1>
 
-        <p className="header-description mb-5 fw-bold">
+        <p className="header-description mb-5 fw-bold text-center">
           Explore thousands of mouthwatering recipes from every corner of the
           globe! 🍲
         </p>
