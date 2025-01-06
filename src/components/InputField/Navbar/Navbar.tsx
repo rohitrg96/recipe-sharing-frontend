@@ -4,9 +4,12 @@ import { FaSignInAlt, FaUser } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import api from '../../../api/axiosInstance';
 import './Navbar.css';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/auth/authSlice';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const authToken = Cookies.get('authToken');
   const handleLogout = async () => {
     await api.post('/auth/logout', null, {
@@ -16,6 +19,7 @@ const Navbar: React.FC = () => {
     });
 
     Cookies.remove('authToken'); // Remove the authToken cookie
+    dispatch(logout());
 
     navigate('/login'); // Redirect to login page
   };

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { loginUser } from '../services/authService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/auth/authSlice';
 
 const useLogin = () => {
   const [userName, setUserName] = useState('');
@@ -9,6 +11,7 @@ const useLogin = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,12 +20,19 @@ const useLogin = () => {
     const response = await loginUser(loginData);
 
     if (response.success) {
-      setSuccess(response.data.message); // Successfully logged in
+      setSuccess(response.data.message);
       setError('');
       const token = response.data.data.token;
       const expiryTime = getTokenExpiry(token);
-      Cookies.set('authToken', token, { expires: new Date(expiryTime), secure: false, sameSite: 'Strict' });
-      navigate('/'); // Redirect to home page after login
+      Cookies.set('authToken', token, {
+        expires: new Date(expiryTime),
+        secure: false,
+        sameSite: 'Strict',
+      });
+
+      // Update Redux state
+      dispatch(login());
+      navigate('/');
     } else {
       setError(response.error);
       setSuccess('');
@@ -30,8 +40,8 @@ const useLogin = () => {
   };
 
   function getTokenExpiry(token: string) {
-    const decoded = JSON.parse(atob(token.split('.')[1])); // Decode the JWT
-    return decoded.exp * 1000; // Convert expiry from seconds to milliseconds
+    const decoded = JSON.parse(atob(token.split('.')[1]));
+    return decoded.exp * 1000;
   }
 
   const handleSignupRedirect = () => {

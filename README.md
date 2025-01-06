@@ -25,12 +25,24 @@ This is the frontend for the Recipe-Sharing Platform built using React, TypeScri
 - User-friendly interface for user registration, login, and logout.
 - Restrict actions like view detail page, rating and commenting to authenticated users.
 
+### Optimizations
+
+- Lazy Loading: Implemented lazy loading to improve performance and load times by splitting the app into smaller chunks.
+
+### Testing
+
+- Unit Tests: Added unit tests to ensure individual components and utilities work as expected.
+- Integration Tests: Verified the interactions between different modules and components.
+- End-to-End (E2E) Tests: Ensured the application flows work as intended using cypress
+
 ## Tech Stack
 
 - **React**: Frontend library
 - **TypeScript**: Type-safe development
 - **Vite**: Modern development build tool
 - **Bootstrap 5**: Styling framework
+- **Jest**:Unit and integration testing framework
+- **Cypress**: For end-to-end testing
 
 ## Prerequisites
 

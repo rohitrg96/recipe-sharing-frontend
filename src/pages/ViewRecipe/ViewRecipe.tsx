@@ -76,49 +76,52 @@ const ViewRecipe: React.FC = () => {
           <p>No comments yet. Be the first to comment!</p>
         ) : (
           recipe.comments.map((c) => (
-            <div className="comment-box" key={c._id}>
-              <h6 className="comment-author">
-                {c.user.firstName} {c.user.lastName}
-              </h6>
-              <p className="comment-text">{c.comment}</p>
-              <small className="comment-date">
-                Posted on {new Date(c.createdAt).toLocaleDateString()}
-              </small>
-              {c._id === userComment?._id && (
-                <>
-                  <button
-                    className="edit-button p-2 m-1"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Edit
-                  </button>
+            <div className="comments-list" key={c._id}>
+              <div className="comment-box comment-item">
+                <h6 className="comment-author">
+                  {c.user.firstName} {c.user.lastName}
+                </h6>
+                <p className="comment-text">{c.comment}</p>
+                <small className="comment-date">
+                  Posted on {new Date(c.createdAt).toLocaleDateString()}
+                </small>
+                {c._id === userComment?._id && (
+                  <>
+                    <button
+                      className="edit-button p-2 m-1 "
+                      onClick={() => setShowModal(true)}
+                      data-testid="edit-comment"
+                    >
+                      Edit
+                    </button>
 
-                  {showModal && (
-                    <div className="modal-overlay">
-                      <div className="modal-dialog">
-                        <div className="modal-content p-1">
-                          <div className="modal-header position-relative">
-                            <button
-                              type="button"
-                              className="btn-close top-right-close"
-                              onClick={() => setShowModal(false)}
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div className="modal-body">
-                            <CommentInput
-                              label="Edit your Comment"
-                              comment={comment}
-                              onChange={setComment}
-                              onSubmit={handleAddComment}
-                            />
+                    {showModal && (
+                      <div className="modal-overlay">
+                        <div className="modal-dialog">
+                          <div className="modal-content p-1">
+                            <div className="modal-header position-relative">
+                              <button
+                                type="button"
+                                className="btn-close top-right-close"
+                                onClick={() => setShowModal(false)}
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div className="modal-body">
+                              <CommentInput
+                                label="Edit your Comment"
+                                comment={comment}
+                                onChange={setComment}
+                                onSubmit={handleAddComment}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              )}
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           ))
         )}
@@ -141,6 +144,7 @@ const ViewRecipe: React.FC = () => {
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}
+                data-testid="star"
                 className={`star ${star <= Number(userRating.rating) ? 'active' : ''}`}
               >
                 ★
@@ -154,6 +158,7 @@ const ViewRecipe: React.FC = () => {
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
+                  data-testid="star"
                   className={`star ${star <= rating ? 'active' : ''}`}
                   onClick={() => handleRate(star)}
                 >

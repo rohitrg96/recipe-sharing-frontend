@@ -46,7 +46,11 @@ const Login: React.FC = () => {
           />
           <AuthButton text="Sign In" onClick={handleLogin} />
 
-          <button className="login-button-link" onClick={handleSignupRedirect}>
+          <button
+            className="login-button-link"
+            data-testid="signup-link"
+            onClick={handleSignupRedirect}
+          >
             Don't have an account? Click here to sign up!
           </button>
 
