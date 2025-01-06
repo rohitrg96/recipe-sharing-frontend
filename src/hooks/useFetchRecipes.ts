@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import { fetchRecipes } from '../services/searchRecipes';
 import { Recipe } from '../types/Recipe';
+import { useDispatch } from 'react-redux';
+import { startLoading, stopLoading } from '../redux/loading/loadSlice';
 
 export const useFetchRecipes = () => {
+  const dispatch = useDispatch();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [totalpages, setTotalPages] = useState<number>(10);
   const [error, setError] = useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(''); // For debouncing
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState<{ minRating?: string; maxPreparationTime?: string }>({});
+  const [filters, setFilters] = useState<{
+    minRating?: string;
+    maxPreparationTime?: string;
+  }>({});
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -24,6 +30,7 @@ export const useFetchRecipes = () => {
   useEffect(() => {
     const fetchData = async () => {
       setError(null);
+      dispatch(startLoading()); // Start loading before the API call
       try {
         const data = await fetchRecipes({
           ingredients: debouncedSearchTerm,
@@ -36,6 +43,8 @@ export const useFetchRecipes = () => {
         setTotalPages(data.pagination.totalPages);
       } catch (error) {
         setError('Failed to fetch recipes');
+      } finally {
+        dispatch(stopLoading()); // Stop loading after the API call completes
       }
     };
 
@@ -50,10 +59,21 @@ export const useFetchRecipes = () => {
     setSearchTerm(searchTerm);
   };
 
-  const handleFilterChange = (newFilters: { minRating?: string; maxPreparationTime?: string }) => {
+  const handleFilterChange = (newFilters: {
+    minRating?: string;
+    maxPreparationTime?: string;
+  }) => {
     setFilters(newFilters);
     setCurrentPage(1); // Reset to the first page when filters change
   };
 
-  return { recipes, error, totalpages, currentPage, handleSearch, handlePageChange, handleFilterChange };
+  return {
+    recipes,
+    error,
+    totalpages,
+    currentPage,
+    handleSearch,
+    handlePageChange,
+    handleFilterChange,
+  };
 };
