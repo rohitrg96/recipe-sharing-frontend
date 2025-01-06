@@ -7,6 +7,8 @@ import Navbar from '../components/InputField/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import Pagination from '../components/Pagination/Pagination';
 import LazyLoad from 'react-lazyload'; // Import LazyLoad from react-lazyload
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 const HomePage: React.FC = () => {
   const {
@@ -18,6 +20,8 @@ const HomePage: React.FC = () => {
     currentPage,
     handleFilterChange,
   } = useFetchRecipes();
+
+  const loading = useSelector((state: RootState) => state.loading.loading); // Get loading state from Redux store
 
   if (error) {
     return <div>{error}</div>;
@@ -33,6 +37,13 @@ const HomePage: React.FC = () => {
         onSearch={handleSearch}
         onFilterChange={handleFilterChange}
       />
+
+      {/* Loading Indicator */}
+      {loading && (
+        <h3 className="loading-spinner text-center mt-5 text-danger">
+          Loading...
+        </h3>
+      )}
 
       {/* Cards Section */}
       <div className="container">
