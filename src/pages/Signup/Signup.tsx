@@ -3,6 +3,7 @@ import './Signup.css';
 import InputField from '../../components/InputField/AuthInputFeild/AuthInputField';
 import AuthButton from '../../components/AuthButton/AuthButton';
 import useSignUp from '../../hooks/useSignUp';
+import PasswordInput from '../../components/InputField/AuthInputFeild/passwordInputFeild/PasswordInput';
 
 const SignUp: React.FC = () => {
   const {
@@ -63,13 +64,12 @@ const SignUp: React.FC = () => {
           />
 
           {/* Password Input */}
-          <InputField
-            type="password"
-            placeholder="Password"
+          <PasswordInput
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
             required
-            name="password"
           />
 
           {/* Sign Up Button */}
