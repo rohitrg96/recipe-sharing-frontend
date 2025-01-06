@@ -27,7 +27,7 @@ This is the frontend for the Recipe-Sharing Platform built using React, TypeScri
 
 ### Optimizations
 
-- ULazy Loading: Implemented lazy loading to improve performance and load times by splitting the app into smaller chunks.
+- Lazy Loading: Implemented lazy loading to improve performance and load times by splitting the app into smaller chunks.
 
 ### Testing
 
