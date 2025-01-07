@@ -13,7 +13,7 @@ import { RootState } from '../redux/store';
 const HomePage: React.FC = () => {
   const {
     recipes,
-    error,
+    _error,
     totalpages,
     handleSearch,
     handlePageChange,
@@ -23,8 +23,8 @@ const HomePage: React.FC = () => {
 
   const loading = useSelector((state: RootState) => state.loading.loading); // Get loading state from Redux store
 
-  if (error) {
-    return <div>{error}</div>;
+  if (_error) {
+    return <div>{_error}</div>;
   }
 
   return (

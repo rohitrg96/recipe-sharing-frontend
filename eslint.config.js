@@ -25,6 +25,10 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-explicit-any': 'warn', // Allow `any` but issue a warning
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ], // Allow unused variables starting with _
     },
   },
 );

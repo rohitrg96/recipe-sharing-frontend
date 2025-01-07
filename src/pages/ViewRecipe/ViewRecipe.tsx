@@ -12,12 +12,6 @@ const ViewRecipe: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [rating, setRating] = useState<number>(0);
 
-  if (!recipeId) {
-    return (
-      <div className="text-center mt-5 text-danger">Recipe not found!</div>
-    );
-  }
-
   const {
     recipe,
     isRecipeLoading,
@@ -26,7 +20,7 @@ const ViewRecipe: React.FC = () => {
     userRating,
     addCommentMutation,
     addRatingMutation,
-  } = useViewRecipe(recipeId);
+  } = useViewRecipe(recipeId!);
 
   if (isRecipeLoading || isFeedbackLoading) {
     return <h1 className="text-center mt-5 text-danger">Loading.....</h1>;

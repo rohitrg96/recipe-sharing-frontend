@@ -8,7 +8,8 @@ export const useFetchRecipes = () => {
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [totalpages, setTotalPages] = useState<number>(10);
-  const [error, setError] = useState<string | null>(null);
+  // This variable is returned from the hook and used in the component, so it's not unused.
+  const [_error, setError] = useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(''); // For debouncing
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<{
@@ -69,7 +70,7 @@ export const useFetchRecipes = () => {
 
   return {
     recipes,
-    error,
+    _error,
     totalpages,
     currentPage,
     handleSearch,
