@@ -16,6 +16,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [minRating, setMinRating] = useState<string | ''>('');
   const [maxPreparationTime, setMaxPreparationTime] = useState<string | ''>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -25,8 +26,21 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
 
   const handleMinRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? e.target.value : '';
-    setMinRating(value);
-    onFilterChange({ minRating: value, maxPreparationTime });
+    // Validate input: Only allow values between 1 and 5
+    if (value === '' || (Number(value) >= 1 && Number(value) <= 5)) {
+      setErrorMessage('');
+      setMinRating(value);
+      onFilterChange({ minRating: value, maxPreparationTime });
+    } else if (value !== '') {
+      setErrorMessage('Please enter a value between 1 and 5');
+    } else {
+      setMinRating(value); // Clear value if the input is empty
+      setErrorMessage(''); // Clear error if empty
+    }
+  };
+
+  const handleBlur = () => {
+    setErrorMessage(''); // Hide error when the field loses focus
   };
 
   const handleMaxPreparationTimeChange = (
@@ -64,6 +78,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
         {/* Filters */}
         <div className="header-filters">
           {/* Min Rating */}
+
           <div className="filter-container">
             <label htmlFor="minRating" className="form-label filter-label">
               Min Rating
@@ -76,8 +91,14 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
               min={1}
               max={5}
               value={minRating}
+              onBlur={handleBlur} // Clear error on blur
               onChange={handleMinRatingChange}
+              onKeyDown={(e) => {
+                if (e.key === '-' || e.key === '+') e.preventDefault(); // Prevent typing negative/positive signs
+              }}
             />
+            {errorMessage && <p className="error-message">{errorMessage}</p>}{' '}
+            {/* Show error message */}
           </div>
 
           {/* Max Preparation Time */}
@@ -96,6 +117,9 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
               min={1}
               value={maxPreparationTime}
               onChange={handleMaxPreparationTimeChange}
+              onKeyDown={(e) => {
+                if (e.key === '-' || e.key === '+') e.preventDefault(); // Prevent typing negative/positive signs
+              }}
             />
           </div>
         </div>
