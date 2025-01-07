@@ -1,0 +1,59 @@
+# Name of the CI/CD pipeline
+name: React Vite TypeScript CI/CD Pipeline
+
+# Trigger the pipeline on specific events (push or pull request)
+on:
+  # Trigger on push events to the 'main' branch
+  push:
+    branches:
+      - dev # Only on push to the main branch
+  # Trigger on pull requests targeting the 'main' branch
+  pull_request:
+    branches:
+      - dev # Only on pull requests to the main branch
+
+jobs:
+  # Define the job that will run on the CI/CD pipeline
+  build:
+    # Specify the environment the job will run on
+    runs-on: ubuntu-latest # Use the latest version of Ubuntu as the runner
+
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3 # Check out the code from the repository
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3 # Use Node.js setup action
+        with:
+          node-version: '16' # Define the Node.js version to use (modify if needed)
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: |
+          npm ci  # Clean install dependencies based on package-lock.json
+
+      # Step 4: Run Linter
+      - name: Run Linter
+        run: |
+          npm run lint  # Run your linter script to ensure code quality
+
+      # Step 5: Run tests (if applicable)
+      - name: Run tests
+        run: |
+          npm run test -- --coverage  # Run tests and generate a coverage report
+
+      # Step 6: Build the app using Vite
+      - name: Build app
+        run: |
+          npm run build  # Build the project using the Vite build script
+
+      # Step 7: Deploy to Vercel (or any other platform you use)
+      - name: Deploy to Vercel (or other hosting service)
+        run: |
+          npm install -g vercel  # Install the Vercel CLI globally
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}  # Deploy to Vercel using the token stored in GitHub secrets
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Pass the Vercel token as an environment variable
+

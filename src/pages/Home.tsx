@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
       {/* Cards Section */}
       <div className="container">
         <div className="row">
-          {recipes.length === 0 ? (
+          {!loading && recipes.length === 0 ? (
             <h5 className="text-center text-danger mb-5">
               Oops! No Recipes found, try rephrasing the query.
             </h5>
