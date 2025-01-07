@@ -49,7 +49,9 @@ const HomePage: React.FC = () => {
       <div className="container">
         <div className="row">
           {recipes.length === 0 ? (
-            <div className="text-center">No recipes found</div>
+            <h5 className="text-center text-danger mb-5">
+              Oops! No Recipes found, try rephrasing the query.
+            </h5>
           ) : (
             recipes.map((recipe: Recipe) => (
               <div
