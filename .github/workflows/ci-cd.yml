@@ -49,11 +49,11 @@ jobs:
         run: |
           npm run build  # Build the project using the Vite build script
 
-      # Step 7: Deploy to Vercel (or any other platform you use)
-      - name: Deploy to Vercel (or other hosting service)
+      # Step 7: Deploy to Vercel
+      - name: Deploy to Vercel
         run: |
           npm install -g vercel  # Install the Vercel CLI globally
-          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}  # Deploy to Vercel using the token stored in GitHub secrets
+          vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}  # Deploy to Vercel using the token stored in GitHub secrets
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Pass the Vercel token as an environment variable
 
