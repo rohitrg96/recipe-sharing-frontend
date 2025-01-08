@@ -4,16 +4,18 @@ import { MemoryRouter } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+import { Provider } from 'react-redux';
+import store from '../../../redux/store'; // Import store directly
+import api from '../../../api/axiosInstance'; // Import the api instance
 
 jest.mock('../../../api/axiosInstance', () => ({
-  post: jest.fn(),
+  post: jest.fn(), // Mocking the post method
 }));
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
 }));
 
-// const mockedApi = require('../../../api/axiosInstance').post;
 const mockNavigate = jest.fn();
 (useNavigate as jest.Mock).mockImplementation(() => mockNavigate);
 
@@ -22,10 +24,17 @@ describe('Navbar Component', () => {
     jest.clearAllMocks();
   });
 
+  // Helper to render with Redux Provider
+  const renderWithRedux = (ui: JSX.Element) => {
+    return render(<Provider store={store}>{ui}</Provider>);
+  };
+
   it('renders Navbar correctly', () => {
-    render(
+    renderWithRedux(
       <MemoryRouter>
-        <Navbar />
+        <Provider store={store}>
+          <Navbar />
+        </Provider>
       </MemoryRouter>,
     );
 
@@ -39,7 +48,7 @@ describe('Navbar Component', () => {
   it('renders "Log In" button when no authToken is present', () => {
     Cookies.get = jest.fn().mockReturnValue(undefined);
 
-    render(
+    renderWithRedux(
       <MemoryRouter>
         <Navbar />
       </MemoryRouter>,
@@ -54,7 +63,7 @@ describe('Navbar Component', () => {
   it('renders dropdown menu when authToken is present', () => {
     Cookies.get = jest.fn().mockReturnValue('fakeAuthToken');
 
-    render(
+    renderWithRedux(
       <MemoryRouter>
         <Navbar />
       </MemoryRouter>,
@@ -69,7 +78,7 @@ describe('Navbar Component', () => {
   it('toggles dropdown menu visibility on button click', () => {
     Cookies.get = jest.fn().mockReturnValue('fakeAuthToken');
 
-    render(
+    renderWithRedux(
       <MemoryRouter>
         <Navbar />
       </MemoryRouter>,
@@ -87,37 +96,38 @@ describe('Navbar Component', () => {
     expect(screen.queryByText(/add recipe/i)).not.toBeInTheDocument();
   });
 
-  // it('handles logout correctly', async () => {
-  //   // Mock the get and remove methods of Cookies
-  //   Cookies.get = jest.fn().mockReturnValue('fakeAuthToken');
-  //   Cookies.remove = jest.fn(); // Ensure remove is mocked
+  it('handles logout correctly', async () => {
+    // Mock the get and remove methods of Cookies
+    Cookies.get = jest.fn().mockReturnValue('fakeAuthToken');
+    Cookies.remove = jest.fn(); // Ensure remove is mocked
 
-  //   mockedApi.mockResolvedValueOnce({});
+    // Use the mocked `post` method of axios
+    (api.post as jest.Mock).mockResolvedValueOnce({});
 
-  //   render(
-  //     <MemoryRouter>
-  //       <Navbar />
-  //     </MemoryRouter>,
-  //   );
+    renderWithRedux(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>,
+    );
 
-  //   const accountButton = screen.getByText(/my account/i);
-  //   fireEvent.click(accountButton);
+    const accountButton = screen.getByText(/my account/i);
+    fireEvent.click(accountButton);
 
-  //   const logoutButton = screen.getByText(/log out/i);
-  //   fireEvent.click(logoutButton);
+    const logoutButton = screen.getByText(/Log Out/i);
+    fireEvent.click(logoutButton);
 
-  //   // Assert API call
-  //   expect(mockedApi).toHaveBeenCalledWith('/auth/logout', null, {
-  //     headers: { Authorization: 'Bearer fakeAuthToken' },
-  //   });
+    // Assert API call
+    expect(api.post).toHaveBeenCalledWith('/auth/logout', null, {
+      headers: { Authorization: 'Bearer fakeAuthToken' },
+    });
 
-  //   // Ensure the authToken cookie is removed
-  //   expect(Cookies.remove).toHaveBeenCalledWith('authToken');
+    // // Ensure the authToken cookie is removed
+    // expect(Cookies.remove).toHaveBeenCalledWith('authToken');
 
-  //   // Ensure the token is not available after removal
-  //   expect(Cookies.get('authToken')).toBeUndefined();
+    // // Ensure the token is not available after removal
+    // expect(Cookies.get('authToken')).toBeUndefined();
 
-  //   // Ensure navigation to login page
-  //   expect(mockNavigate).toHaveBeenCalledWith('/login');
-  // });
+    // // Ensure navigation to login page
+    // expect(mockNavigate).toHaveBeenCalledWith('/login');
+  });
 });

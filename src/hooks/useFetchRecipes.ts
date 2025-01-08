@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchRecipes } from '../services/searchRecipes';
-import { Recipe } from '../types/Recipe';
-import { useDispatch } from 'react-redux';
-import { startLoading, stopLoading } from '../redux/loading/loadSlice';
+import { FetchRecipesResponse } from '../types/Recipe';
 
 export const useFetchRecipes = () => {
-  const dispatch = useDispatch();
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [totalpages, setTotalPages] = useState<number>(10);
-  const [error, setError] = useState<string | null>(null);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(''); // For debouncing
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<{
     minRating?: string;
@@ -20,36 +15,24 @@ export const useFetchRecipes = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 500); // 500ms delay
+    }, 500);
 
     return () => {
-      clearTimeout(handler); // Clear timeout on every change
+      clearTimeout(handler);
     };
   }, [searchTerm]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setError(null);
-      dispatch(startLoading()); // Start loading before the API call
-      try {
-        const data = await fetchRecipes({
-          ingredients: debouncedSearchTerm,
-          minRating: filters.minRating,
-          maxPreparationTime: filters.maxPreparationTime,
-          page: currentPage,
-          limit: 12,
-        });
-        setRecipes(data.data);
-        setTotalPages(data.pagination.totalPages);
-      } catch (error) {
-        setError('Failed to fetch recipes');
-      } finally {
-        dispatch(stopLoading()); // Stop loading after the API call completes
-      }
-    };
-
-    fetchData();
-  }, [debouncedSearchTerm, filters, currentPage]);
+  const { data, error, isLoading, isError } = useQuery<FetchRecipesResponse>({
+    queryKey: ['recipes', debouncedSearchTerm, filters, currentPage],
+    queryFn: () =>
+      fetchRecipes({
+        ingredients: debouncedSearchTerm,
+        minRating: filters.minRating,
+        maxPreparationTime: filters.maxPreparationTime,
+        page: currentPage,
+        limit: 12,
+      }),
+  });
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -64,14 +47,16 @@ export const useFetchRecipes = () => {
     maxPreparationTime?: string;
   }) => {
     setFilters(newFilters);
-    setCurrentPage(1); // Reset to the first page when filters change
+    setCurrentPage(1);
   };
 
   return {
-    recipes,
-    error,
-    totalpages,
+    recipes: data?.data || [],
+    error: isError && error instanceof Error ? error.message : null,
+    totalpages: data?.pagination.totalPages || 10,
     currentPage,
+    isLoading,
+    isError,
     handleSearch,
     handlePageChange,
     handleFilterChange,

@@ -29,6 +29,8 @@ This is the frontend for the Recipe-Sharing Platform built using React, TypeScri
 
 - Lazy Loading: Implemented lazy loading to improve performance and load times by splitting the app into smaller chunks.
 
+- Caching: Added caching using React Query to optimize API calls and improve performance.
+
 ### Testing
 
 - Unit Tests: Added unit tests to ensure individual components and utilities work as expected.
@@ -42,6 +44,7 @@ This is the frontend for the Recipe-Sharing Platform built using React, TypeScri
 - **Vite**: Modern development build tool
 - **Bootstrap 5**: Styling framework
 - **Jest**:Unit and integration testing framework
+- **React Query**: For caching and optimized data fetching
 - **Cypress**: For end-to-end testing
 
 ## Prerequisites
