@@ -5,51 +5,10 @@ import {
   addRating,
   fetchUserFeedback,
 } from '../services/viewRecipeService';
+import { RecipeData, UserFeedback } from '../types/Recipe';
 
 export const useViewRecipe = (recipeId: string) => {
   const queryClient = useQueryClient();
-
-  // Define types for Recipe and UserFeedback
-  interface RecipeData {
-    _id: string;
-    title: string;
-    ingredients: string[];
-    steps: string[];
-    image: string | null;
-    preparationTime: number;
-    user: {
-      _id: string;
-      firstName: string;
-      lastName: string;
-      email: string;
-    };
-    stars: Array<{
-      user: { _id: string; firstName: string; lastName: string; email: string };
-      rating: number;
-      _id: string;
-    }>;
-    comments: Array<{
-      user: { _id: string; firstName: string; lastName: string; email: string };
-      comment: string;
-      _id: string;
-      createdAt: string;
-    }>;
-  }
-
-  interface UserFeedback {
-    data: {
-      checkIfUserhasCommented: {
-        _id: string;
-        comment: string;
-        createdAt: string;
-      } | null;
-      checkIfUserhasRated: {
-        _id: string;
-        rating: string;
-        createdAt: string;
-      } | null;
-    };
-  }
 
   // Fetch recipe data
   const { data: recipe, isLoading: isRecipeLoading } = useQuery<RecipeData>({

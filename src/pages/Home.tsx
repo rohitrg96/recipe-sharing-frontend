@@ -13,18 +13,24 @@ import { RootState } from '../redux/store';
 const HomePage: React.FC = () => {
   const {
     recipes,
-    _error,
+    error,
     totalpages,
     handleSearch,
     handlePageChange,
     currentPage,
     handleFilterChange,
+    isLoading, // React Query loading state
   } = useFetchRecipes();
 
-  const loading = useSelector((state: RootState) => state.loading.loading); // Get loading state from Redux store
+  // Get loading state from Redux store
+  const loading = useSelector((state: RootState) => state.loading.loading);
 
-  if (_error) {
-    return <div>{_error}</div>;
+  // Combine loading states
+  const isPageLoading = loading || isLoading;
+
+  // Error handling
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
@@ -39,7 +45,7 @@ const HomePage: React.FC = () => {
       />
 
       {/* Loading Indicator */}
-      {loading && (
+      {isPageLoading && (
         <h3 className="loading-spinner text-center mt-5 text-danger">
           Loading...
         </h3>
@@ -48,7 +54,7 @@ const HomePage: React.FC = () => {
       {/* Cards Section */}
       <div className="container">
         <div className="row">
-          {!loading && recipes.length === 0 ? (
+          {!isPageLoading && recipes.length === 0 ? (
             <h5 className="text-center text-danger mb-5">
               Oops! No Recipes found, try rephrasing the query.
             </h5>
