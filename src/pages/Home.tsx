@@ -19,10 +19,16 @@ const HomePage: React.FC = () => {
     handlePageChange,
     currentPage,
     handleFilterChange,
+    isLoading, // React Query loading state
   } = useFetchRecipes();
 
-  const loading = useSelector((state: RootState) => state.loading.loading); // Get loading state from Redux store
+  // Get loading state from Redux store
+  const loading = useSelector((state: RootState) => state.loading.loading);
 
+  // Combine loading states
+  const isPageLoading = loading || isLoading;
+
+  // Error handling
   if (error) {
     return <div>{error}</div>;
   }
@@ -39,7 +45,7 @@ const HomePage: React.FC = () => {
       />
 
       {/* Loading Indicator */}
-      {loading && (
+      {isPageLoading && (
         <h3 className="loading-spinner text-center mt-5 text-danger">
           Loading...
         </h3>
@@ -48,8 +54,10 @@ const HomePage: React.FC = () => {
       {/* Cards Section */}
       <div className="container">
         <div className="row">
-          {recipes.length === 0 ? (
-            <div className="text-center">No recipes found</div>
+          {!isPageLoading && recipes.length === 0 ? (
+            <h5 className="text-center text-danger mb-5">
+              Oops! No Recipes found, try rephrasing the query.
+            </h5>
           ) : (
             recipes.map((recipe: Recipe) => (
               <div
