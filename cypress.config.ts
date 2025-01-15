@@ -7,4 +7,5 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}', // Include TypeScript test files
     supportFile: 'cypress/support/e2e.ts', // Ensure the support file is TypeScript
   },
+  defaultCommandTimeout: 10000,
 });

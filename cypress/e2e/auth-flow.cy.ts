@@ -1,9 +1,14 @@
 describe('User Authentication and Navigation Flow', () => {
+  const generateRandomEmail = () => {
+    const randomNumber = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit random number
+    return `test${randomNumber}cypress@gmail.com`;
+  };
+
   const testUser = {
     firstName: 'test',
     lastName: 'cypress',
-    email: 'test12cypress@gmil.com',
-    password: '123456',
+    email: generateRandomEmail(),
+    password: 'JDKjdfhkdf!!23@dhf',
   };
 
   it('should allow a user to sign up, log in, and view recipe details', () => {

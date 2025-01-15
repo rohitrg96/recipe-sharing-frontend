@@ -5,8 +5,8 @@ describe('Recipe Details Interaction', () => {
   };
 
   const testRecipe = {
-    id: '676393951a3be1f32a1ddc70', // Replace with a valid recipe ID for testing
-    title: 'Creamy Mushroom Soup',
+    id: '676393951a3be1f32a1ddc6b', // Replace with a valid recipe ID for testing
+    title: 'Vegetable Stir-Fry',
   };
 
   const initialComment = 'This is a test comment.';
