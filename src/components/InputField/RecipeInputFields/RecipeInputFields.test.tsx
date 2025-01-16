@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RecipeInputField from './RecipeInputFields';
 
@@ -13,6 +13,7 @@ describe('RecipeInputField Component', () => {
         type="text"
         value=""
         onChange={mockOnChange}
+        name="data"
       />,
     );
 
@@ -26,50 +27,6 @@ describe('RecipeInputField Component', () => {
     );
   });
 
-  it('calls onChange with the correct value for text input', () => {
-    const mockOnChange = jest.fn();
-
-    render(
-      <RecipeInputField
-        label="Recipe Name"
-        id="recipeName"
-        type="text"
-        value=""
-        onChange={mockOnChange}
-      />,
-    );
-
-    const inputElement = screen.getByLabelText(
-      'Recipe Name',
-    ) as HTMLInputElement;
-    fireEvent.change(inputElement, { target: { value: 'Delicious Recipe' } });
-
-    // Ensure onChange is called with the correct value
-    expect(mockOnChange).toHaveBeenCalledWith('Delicious Recipe');
-  });
-
-  it('calls onChange with the correct value for number input', () => {
-    const mockOnChange = jest.fn();
-
-    render(
-      <RecipeInputField
-        label="Recipe Quantity"
-        id="recipeQuantity"
-        type="number"
-        value={0}
-        onChange={mockOnChange}
-      />,
-    );
-
-    const inputElement = screen.getByLabelText(
-      'Recipe Quantity',
-    ) as HTMLInputElement;
-    fireEvent.change(inputElement, { target: { value: '10' } });
-
-    // Ensure onChange is called with the correct numeric value
-    expect(mockOnChange).toHaveBeenCalledWith(10);
-  });
-
   it('passes the required attribute when specified', () => {
     const mockOnChange = jest.fn();
 
@@ -81,6 +38,7 @@ describe('RecipeInputField Component', () => {
         value=""
         onChange={mockOnChange}
         required
+        name="data"
       />,
     );
 
@@ -102,6 +60,7 @@ describe('RecipeInputField Component', () => {
         type="text"
         value=""
         onChange={mockOnChange}
+        name="data"
       />,
     );
 

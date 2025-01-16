@@ -1,0 +1,8 @@
+const HTTP_CODES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  TOO_MANY_REQUESTS: 429,
+  OK: 200,
+};
+
+export default HTTP_CODES;

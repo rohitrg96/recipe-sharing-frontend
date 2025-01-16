@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           {authToken ? (
             <div className="dropdown">
               <button
-                className="btn btn-outline-primary dropdown-toggle"
+                className="btn btn-primary dropdown-toggle"
                 type="button"
                 id="accountDropdown"
                 onClick={() => setShowDropdown((prev) => !prev)}
