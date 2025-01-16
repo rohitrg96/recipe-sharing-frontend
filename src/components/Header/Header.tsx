@@ -67,6 +67,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
         {/* Search Bar */}
         <div className="d-flex justify-content-center mb-3">
           <input
+            aria-label="search-bar"
             type="search"
             className="w-50 form-control"
             placeholder="Your Ingredients, Our Recipe Ideas"
