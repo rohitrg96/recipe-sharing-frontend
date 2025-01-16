@@ -1,5 +1,6 @@
 import api from '../api/axiosInstance';
 import { SignUpRequest, LoginRequest } from '../types/auth';
+import HTTP_CODES from '../utils/httpCodes';
 
 // Sign up user
 export const signUpUser = async (userData: SignUpRequest) => {
@@ -33,7 +34,7 @@ export const loginUser = async (loginData: LoginRequest) => {
     });
 
     // Manually check for error status (like 400) and handle accordingly
-    if (response.status === 200) {
+    if (response.status === HTTP_CODES.OK) {
       return { success: true, data: response.data };
     } else {
       return {
