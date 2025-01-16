@@ -1,16 +1,5 @@
 import api from '../api/axiosInstance';
-
-interface SignUpRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
-interface LoginRequest {
-  userName: string;
-  password: string;
-}
+import { SignUpRequest, LoginRequest } from '../types/auth';
 
 // Sign up user
 export const signUpUser = async (userData: SignUpRequest) => {
@@ -25,8 +14,9 @@ export const signUpUser = async (userData: SignUpRequest) => {
     let errorMessages;
     if (error.response.data.errors) {
       errorMessages =
-        error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') ||
-        'Something went wrong';
+        error.response?.data?.errors
+          ?.map((err: { message: string }) => err.message)
+          .join('\n') || 'Something went wrong';
     } else {
       errorMessages = error.response.data.message;
     }
@@ -46,15 +36,19 @@ export const loginUser = async (loginData: LoginRequest) => {
     if (response.status === 200) {
       return { success: true, data: response.data };
     } else {
-      return { success: false, error: response.data?.message || 'Invalid credentials' };
+      return {
+        success: false,
+        error: response.data?.message || 'Invalid credentials',
+      };
     }
   } catch (error: any) {
     console.error('Login Error:', error);
     let errorMessages;
     if (error.response.data.errors) {
       errorMessages =
-        error.response?.data?.errors?.map((err: { message: string }) => err.message).join('\n') ||
-        'Something went wrong';
+        error.response?.data?.errors
+          ?.map((err: { message: string }) => err.message)
+          .join('\n') || 'Something went wrong';
     } else {
       errorMessages = error.response.data.message;
     }
