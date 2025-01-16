@@ -40,3 +40,10 @@
   border: none;
   cursor: pointer;
 }
+/* For the error message text */
+.signup-error {
+  color: red; /* Error text color */
+  font-size: 0.875rem; /* Make the text smaller (14px) */
+  margin: 1px; /* Reduce vertical spacing between messages */
+  line-height: 1.2; /* Adjust the line height for compactness */
+}

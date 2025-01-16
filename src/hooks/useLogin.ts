@@ -73,8 +73,16 @@ const useLogin = () => {
       password: '',
     },
     validationSchema: Yup.object({
-      userName: Yup.string().required('Username is required'),
-      password: Yup.string().required('Password is required'),
+      userName: Yup.string()
+        .email('Invalid email address') // Ensures the input is a valid email format
+        .required('Username is required'), // Keeps the required validation
+      password: Yup.string()
+        .min(8, 'Password must be at least 8 characters')
+        .matches(
+          /^(?=.*[A-Z]).*$/, // Regex to ensure at least one uppercase letter
+          'Password must contain at least one uppercase letter',
+        )
+        .required('Password is required'),
     }),
     onSubmit: (values, { setSubmitting, setStatus }) => {
       handleLogin(values, setStatus, setSubmitting);

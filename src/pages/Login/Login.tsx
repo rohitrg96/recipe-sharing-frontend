@@ -35,11 +35,6 @@ const Login: React.FC = () => {
             onBlur={formik.handleBlur}
             required
           />
-          {formik.touched.userName && formik.errors.userName && (
-            <p className="login-message login-message--error">
-              {formik.errors.userName}
-            </p>
-          )}
 
           {/* Password Input */}
           <InputField
@@ -48,14 +43,17 @@ const Login: React.FC = () => {
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
-            // onBlur={formik.handleBlur}
+            onBlur={formik.handleBlur}
             required
           />
-          {formik.touched.password && formik.errors.password && (
-            <p className="login-message login-message--error">
-              {formik.errors.password}
-            </p>
-          )}
+          <div className="signup-errors mb-2">
+            {formik.touched.userName && formik.errors.userName && (
+              <p className="signup-error">{formik.errors.userName}</p>
+            )}
+            {formik.touched.password && formik.errors.password && (
+              <p className="signup-error">{formik.errors.password}</p>
+            )}
+          </div>
 
           {/* Submit Button */}
           <AuthButton
