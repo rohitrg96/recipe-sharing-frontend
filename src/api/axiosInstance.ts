@@ -1,10 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { API_BASE_URL } from '../utils/constants';
 
 // Create Axios instance
 const api = axios.create({
-  baseURL: API_BASE_URL, // Use your API base URL
+  baseURL: import.meta.env.VITE_API_BASE_URL, // Use your API base URL
 });
 
 // Add request interceptor to attach token
