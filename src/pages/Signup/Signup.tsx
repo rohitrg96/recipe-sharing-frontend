@@ -14,7 +14,6 @@ const SignUp: React.FC = () => {
         <form onSubmit={formik.handleSubmit} className="signup-form">
           {/* Title */}
           <h4 className="signup-title">Welcome to the Recipe World! 🍳</h4>
-
           {/* Firstname and Lastname */}
           <div className="signup-name-fields">
             <InputField
@@ -37,9 +36,7 @@ const SignUp: React.FC = () => {
               required
             />
           </div>
-
           <div className="signup-errors"></div>
-
           {/* Email Input */}
           <InputField
             type="email"
@@ -50,7 +47,6 @@ const SignUp: React.FC = () => {
             onBlur={formik.handleBlur}
             required
           />
-
           {/* Password Input */}
           <PasswordInput
             name="password"
@@ -60,7 +56,6 @@ const SignUp: React.FC = () => {
             placeholder="Enter your password"
             required
           />
-
           {/* Display all errors in a compact format */}
           <div className="signup-errors mb-2">
             {formik.touched.firstName && formik.errors.firstName && (
@@ -77,21 +72,11 @@ const SignUp: React.FC = () => {
             )}
           </div>
 
-          {/* Display status messages */}
-          {formik.status?.error && (
-            <p className="signup-error">{formik.status.error}</p>
-          )}
-          {formik.status?.success && (
-            <p className="signup-success">{formik.status.success}</p>
-          )}
-
-          {/* Sign Up Button */}
           <AuthButton
             text={formik.isSubmitting ? 'Signing Up...' : 'Sign Up'}
             type="submit"
             disabled={formik.isSubmitting}
           />
-
           {/* Sign In and Home Links */}
           <p className="signup-links">
             <button

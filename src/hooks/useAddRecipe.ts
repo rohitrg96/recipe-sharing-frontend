@@ -2,45 +2,68 @@ import { useState, useRef } from 'react';
 import { addRecipe } from '../services/addrecipeService';
 import { uploadImage } from '../services/uploadService';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Import toast
+import 'react-toastify/dist/ReactToastify.css';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 export const useAddRecipe = () => {
-  const [title, setTitle] = useState<string>('');
-  const [ingredients, setIngredients] = useState<string[]>(['']); // Start with a single empty ingredient
-  const [steps, setSteps] = useState<string[]>(['']); // Start with a single empty step
-  const [preparationTime, setPreparationTime] = useState<string | ''>(''); // Allow empty initially
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const navigate = useNavigate();
 
-  // Handle adding, updating, and removing ingredients
-  const handleAddIngredient = () => setIngredients([...ingredients, '']);
-  const handleIngredientChange = (index: number, value: string) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients[index] = value;
-    setIngredients(updatedIngredients);
-  };
-  const handleRemoveIngredient = (index: number) => {
-    setIngredients(ingredients.filter((_, i) => i !== index));
-  };
+  // Initialize Formik
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      ingredients: [''],
+      steps: [''],
+      preparationTime: '',
+    },
+    validationSchema: Yup.object({
+      title: Yup.string().required('Recipe title is required'),
+      ingredients: Yup.array().of(
+        Yup.string().required('Ingredient is required'),
+      ),
+      steps: Yup.array().of(Yup.string().required('Step is required')),
+      preparationTime: Yup.number()
+        .typeError('Preparation time must be a valid number')
+        .required('Preparation time is required'),
+    }),
+    onSubmit: async (values) => {
+      if (!uploadedImageUrl) {
+        toast.error('Please upload an image.');
+        return;
+      }
 
-  // Handle adding, updating, and removing steps
-  const handleAddStep = () => setSteps([...steps, '']);
-  const handleStepChange = (index: number, value: string) => {
-    const updatedSteps = [...steps];
-    updatedSteps[index] = value;
-    setSteps(updatedSteps);
-  };
-  const handleRemoveStep = (index: number) => {
-    setSteps(steps.filter((_, i) => i !== index));
-  };
+      const recipeData = {
+        title: values.title,
+        ingredients: values.ingredients,
+        steps: values.steps,
+        preparationTime: values.preparationTime,
+        image: uploadedImageUrl || null,
+      };
 
-  //image upload
+      try {
+        const result = await addRecipe(recipeData);
+        if (result.success) {
+          toast.success('Recipe added successfully!');
+          formik.resetForm();
+          setImagePreview(null);
+          setUploadedImageUrl('');
+          navigate('/');
+        } else {
+          toast.error(result.error || 'Failed to add recipe.');
+        }
+      } catch (error) {
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    },
+  });
+
+  // Handle image selection
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -63,82 +86,30 @@ export const useAddRecipe = () => {
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      setUploadStatus('Please select an image to upload.');
+      toast.warn('Please select an image to upload.');
       return;
     }
 
     try {
       const response = await uploadImage(selectedFile);
-      if (response.statusMessage == 'Success') {
+      if (response.statusMessage === 'Success') {
         setUploadedImageUrl(response.data.url); // Set the URL returned by the backend
-
-        setUploadStatus('Image uploaded successfully!');
+        toast.success('Image uploaded successfully!');
       } else {
-        setUploadStatus(response.data.message || 'Failed to upload image.');
+        toast.error(response.data.message || 'Failed to upload image.');
       }
     } catch (error) {
-      setUploadStatus('Failed to upload image.');
+      toast.error('Failed to upload image.');
       console.error('Upload error:', error);
     }
   };
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-
-    if (preparationTime === '' || isNaN(Number(preparationTime))) {
-      setError('Preparation time must be a valid number.');
-      return;
-    }
-
-    const recipeData = {
-      title,
-      ingredients,
-      steps,
-      preparationTime: Number(preparationTime),
-      image: uploadedImageUrl || null, // Send the image as a base64 string or null
-    };
-
-    const result = await addRecipe(recipeData);
-
-    if (result.success) {
-      setSuccess('Recipe added successfully!');
-      setTitle('');
-      setIngredients(['']);
-      setSteps(['']);
-      setPreparationTime('');
-      setImagePreview(null);
-      setUploadedImageUrl('');
-      navigate('/');
-    } else {
-      setError(result.error || 'Failed to add recipe.');
-    }
-  };
-
   return {
-    title,
-    ingredients,
-    steps,
-    preparationTime,
+    formik,
     imagePreview,
     fileInputRef,
-    error,
-    success,
-    uploadStatus,
-    handleAddIngredient,
-    handleIngredientChange,
-    handleRemoveIngredient,
-    handleAddStep,
-    handleStepChange,
-    handleRemoveStep,
     handleImageChange,
     handleRemoveImage,
-    handleSubmit,
-    setTitle,
-    setPreparationTime,
     handleUpload,
-    uploadedImageUrl,
   };
 };

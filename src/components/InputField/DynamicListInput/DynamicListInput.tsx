@@ -6,10 +6,19 @@ interface DynamicListProps {
   onAdd: () => void;
   onChange: (index: number, value: string) => void;
   onRemove: (index: number) => void;
-  inputStyle?: React.CSSProperties;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: string | boolean | string[];
 }
 
-const DynamicList: React.FC<DynamicListProps> = ({ label, items, onAdd, onChange, onRemove, inputStyle }) => {
+const DynamicList: React.FC<DynamicListProps> = ({
+  label,
+  items,
+  onAdd,
+  onChange,
+  onRemove,
+  onBlur,
+  error,
+}) => {
   return (
     <div className="mb-3">
       <label className="form-label fw-bold">{label}</label>
@@ -18,9 +27,14 @@ const DynamicList: React.FC<DynamicListProps> = ({ label, items, onAdd, onChange
           <input
             type="text"
             className="form-control me-2"
-            style={inputStyle}
             value={item}
             onChange={(e) => onChange(index, e.target.value)}
+            onBlur={onBlur}
+            name={
+              label === 'Ingredients'
+                ? `ingredients[${index}]`
+                : `steps[${index}]`
+            } // Conditional name
             required
           />
           {index === items.length - 1 && (
@@ -38,6 +52,8 @@ const DynamicList: React.FC<DynamicListProps> = ({ label, items, onAdd, onChange
           )}
         </div>
       ))}
+      {/* Show error message if there's one */}
+      {error && <p className="text-danger">{error}</p>}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'; // For validation schema
 import { signUpUser } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useSignUp = () => {
   const navigate = useNavigate();
@@ -14,7 +16,6 @@ const useSignUp = () => {
       email: string;
       password: string;
     },
-    setStatus: (status: { success?: string; error?: string }) => void,
     setSubmitting: (isSubmitting: boolean) => void,
   ) => {
     setSubmitting(true); // Disable the form while submitting
@@ -23,18 +24,18 @@ const useSignUp = () => {
       const response = await signUpUser(values);
 
       if (response.success) {
-        setStatus({ success: 'User registered successfully!' });
+        // Success toast
+        toast.success('User registered successfully!');
         navigate('/login');
       } else {
-        setStatus({
-          error:
-            response.error || 'Unable to create an account. Please try again.',
-        });
+        // Error toast for API errors
+        toast.error(
+          response.error || 'Unable to create an account. Please try again.',
+        );
       }
-    } catch (error: any) {
-      setStatus({
-        error: 'An unexpected error occurred. Please try again later.',
-      });
+    } catch (error) {
+      // Error toast for unexpected errors
+      toast.error('An unexpected error occurred. Please try again later.');
     } finally {
       setSubmitting(false); // Re-enable the form
     }
@@ -62,8 +63,8 @@ const useSignUp = () => {
         )
         .required('Password is required'),
     }),
-    onSubmit: (values, { setSubmitting, setStatus }) => {
-      handleSignUp(values, setStatus, setSubmitting);
+    onSubmit: (values, { setSubmitting }) => {
+      handleSignUp(values, setSubmitting);
     },
   });
 

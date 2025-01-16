@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './AddRecipe.css'; // Import the external CSS file
+import './AddRecipe.css';
 import RecipeInputField from '../../components/InputField/RecipeInputFields/RecipeInputFields';
 import DynamicList from '../../components/InputField/DynamicListInput/DynamicListInput';
 import { useAddRecipe } from '../../hooks/useAddRecipe';
@@ -9,27 +9,12 @@ import Footer from '../../components/Footer/Footer';
 
 const AddRecipe: React.FC = () => {
   const {
-    title,
-    ingredients,
-    steps,
-    preparationTime,
+    formik,
     imagePreview,
     fileInputRef,
-    error,
-    success,
-    handleAddIngredient,
-    handleIngredientChange,
-    handleRemoveIngredient,
-    handleAddStep,
-    handleStepChange,
-    handleRemoveStep,
     handleImageChange,
     handleRemoveImage,
-    handleSubmit,
-    setTitle,
-    setPreparationTime,
     handleUpload,
-    uploadStatus,
   } = useAddRecipe();
 
   return (
@@ -39,49 +24,82 @@ const AddRecipe: React.FC = () => {
         <div className="add-recipe-form">
           <h2 className="add-recipe-title">Add Recipe</h2>
 
-          {/* Display Success or Error Messages */}
-          {success && (
-            <div className="alert alert-success" role="alert">
-              {success}
-            </div>
-          )}
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="row">
+          <form onSubmit={formik.handleSubmit} className="row">
             <div className="col-md-8">
+              {/* Recipe Title Input */}
               <RecipeInputField
                 label="Recipe Title"
                 id="title"
                 type="text"
-                value={title}
-                onChange={(value) => setTitle(value as string)}
+                name="title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 required
+                error={formik.touched.title && formik.errors.title}
               />
+
+              {/* Ingredients List */}
               <DynamicList
                 label="Ingredients"
-                items={ingredients}
-                onAdd={handleAddIngredient}
-                onChange={handleIngredientChange}
-                onRemove={handleRemoveIngredient}
+                items={formik.values.ingredients}
+                onAdd={() =>
+                  formik.setFieldValue('ingredients', [
+                    ...formik.values.ingredients,
+                    '',
+                  ])
+                }
+                onChange={(index, value) => {
+                  const updatedIngredients = [...formik.values.ingredients];
+                  updatedIngredients[index] = value;
+                  formik.setFieldValue('ingredients', updatedIngredients);
+                }}
+                onRemove={(index) => {
+                  const updatedIngredients = formik.values.ingredients.filter(
+                    (_, i) => i !== index,
+                  );
+                  formik.setFieldValue('ingredients', updatedIngredients);
+                }}
+                onBlur={formik.handleBlur}
+                error={formik.touched.ingredients && formik.errors.ingredients}
               />
+
+              {/* Steps List */}
               <DynamicList
                 label="Steps"
-                items={steps}
-                onAdd={handleAddStep}
-                onChange={handleStepChange}
-                onRemove={handleRemoveStep}
+                items={formik.values.steps}
+                onAdd={() =>
+                  formik.setFieldValue('steps', [...formik.values.steps, ''])
+                }
+                onChange={(index, value) => {
+                  const updatedSteps = [...formik.values.steps];
+                  updatedSteps[index] = value;
+                  formik.setFieldValue('steps', updatedSteps);
+                }}
+                onRemove={(index) => {
+                  const updatedSteps = formik.values.steps.filter(
+                    (_, i) => i !== index,
+                  );
+                  formik.setFieldValue('steps', updatedSteps);
+                }}
+                onBlur={formik.handleBlur}
+                error={formik.touched.steps && formik.errors.steps}
               />
+
+              {/* Preparation Time Input */}
               <RecipeInputField
                 label="Preparation Time (mins)"
                 id="prepTime"
                 type="number"
-                value={preparationTime}
-                onChange={(value) => setPreparationTime(value as string)}
+                value={formik.values.preparationTime}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 required
+                name="preparationTime"
+                error={
+                  formik.touched.preparationTime &&
+                  formik.errors.preparationTime
+                }
               />
             </div>
             <div className="col-md-4">
@@ -125,8 +143,6 @@ const AddRecipe: React.FC = () => {
                 >
                   Upload Image
                 </button>
-
-                {uploadStatus && <p className="mt-3">{uploadStatus}</p>}
               </div>
             </div>
 

@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/auth/authSlice';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'; // For validation
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -12,7 +14,6 @@ const useLogin = () => {
 
   const handleLogin = async (
     values: { userName: string; password: string },
-    setStatus: (status: { success?: string; error?: string }) => void,
     setSubmitting: (isSubmitting: boolean) => void,
   ) => {
     setSubmitting(true); // Set the form as "submitting"
@@ -25,7 +26,7 @@ const useLogin = () => {
         const expiryTime = getTokenExpiry(token);
 
         // Set success message
-        setStatus({ success: response.data.message });
+        toast.success('User logged in successfully!');
 
         // Store token in cookies
         Cookies.set('authToken', token, {
@@ -41,13 +42,11 @@ const useLogin = () => {
         navigate('/');
       } else {
         // Set error message
-        setStatus({ error: response.error });
+        toast.error(response.error || 'Unable to Log In. Please try again.');
       }
     } catch (error: any) {
       // Handle unexpected errors
-      setStatus({
-        error: 'An unexpected error occurred. Please try again later.',
-      });
+      toast.error('An unexpected error occurred. Please try again later.');
     } finally {
       setSubmitting(false); // Stop the form from "submitting"
     }
@@ -84,8 +83,8 @@ const useLogin = () => {
         )
         .required('Password is required'),
     }),
-    onSubmit: (values, { setSubmitting, setStatus }) => {
-      handleLogin(values, setStatus, setSubmitting);
+    onSubmit: (values, { setSubmitting }) => {
+      handleLogin(values, setSubmitting);
     },
   });
 
