@@ -5,8 +5,11 @@ interface RecipeInputFieldProps {
   id: string;
   type: 'text' | 'number';
   value: string | number;
-  onChange: (value: string | number) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void; // Optional onBlur prop
   required?: boolean;
+  error?: string | boolean; // Add error prop to display validation errors
+  name: string; // Add name prop
 }
 
 const RecipeInputField: React.FC<RecipeInputFieldProps> = ({
@@ -15,7 +18,10 @@ const RecipeInputField: React.FC<RecipeInputFieldProps> = ({
   type,
   value,
   onChange,
+  onBlur,
   required,
+  error, // Destructure error
+  name, // Destructure name
 }) => {
   return (
     <div className="mb-3">
@@ -25,13 +31,15 @@ const RecipeInputField: React.FC<RecipeInputFieldProps> = ({
       <input
         type={type}
         id={id}
+        name={name} // Ensure the name is added
         className="form-control"
         value={value}
-        onChange={(e) =>
-          onChange(type === 'number' ? +e.target.value : e.target.value)
-        }
+        onChange={onChange}
+        onBlur={onBlur} // Attach onBlur handler
         required={required}
       />
+      {/* Display error message if it exists */}
+      {error && <p className="text-danger">{error}</p>}
     </div>
   );
 };

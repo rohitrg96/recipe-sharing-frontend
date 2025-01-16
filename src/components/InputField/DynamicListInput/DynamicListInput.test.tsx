@@ -6,6 +6,7 @@ describe('DynamicList Component', () => {
   const mockOnAdd = jest.fn();
   const mockOnChange = jest.fn();
   const mockOnRemove = jest.fn();
+  const mockOnBlur = jest.fn();
 
   const defaultProps = {
     label: 'Dynamic List',
@@ -13,6 +14,7 @@ describe('DynamicList Component', () => {
     onAdd: mockOnAdd,
     onChange: mockOnChange,
     onRemove: mockOnRemove,
+    onBlur: mockOnBlur,
   };
 
   beforeEach(() => {
